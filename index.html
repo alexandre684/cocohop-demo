@@ -23,13 +23,13 @@
 <div id="root"></div>
 <script type="text/babel">
 
-const LOGO = "https://framerusercontent.com/images/FVWZ410oWWrBo9AQClCJz8zvFQM.svg?width=328&height=116";
+const LOGO   = "https://framerusercontent.com/images/FVWZ410oWWrBo9AQClCJz8zvFQM.svg?width=328&height=116";
 const BANNER = "https://framerusercontent.com/images/J33Eu6o0w5x0FCj8MyK1MqiONDQ.svg?width=1140&height=641";
 const ORANGE = "#DD5920";
-const TEAL = "#097F78";
-const TEXT = "#0A0A0F";
-const MUTED = "rgba(10,10,15,0.45)";
-const CARD = "rgba(0,0,0,0.03)";
+const TEAL   = "#097F78";
+const TEXT   = "#0A0A0F";
+const MUTED  = "rgba(10,10,15,0.45)";
+const CARD   = "rgba(0,0,0,0.03)";
 const BORDER = "rgba(0,0,0,0.08)";
 
 // ============================================================
@@ -38,6 +38,7 @@ const BORDER = "rgba(0,0,0,0.08)";
 const prospectProfile = {
   name: "Chloé Lizée",
   company: "Maison Manaventura",
+  // Type : "Agence de voyage / Distributeur" OU "Tour-Opérateur / Producteur"
   type: "Agence de voyage / Distributeur",
   context: "Lancement d'une agence concept store à La Tranche-sur-Mer, avec présence physique saisonnière et vente en ligne. Partenariat avec Jessica d'Aventura Tahiti pour la production locale.",
   challenges: [
@@ -48,12 +49,30 @@ const prospectProfile = {
   ],
   benefits: [
     { icon:"⚡", title:"Import PDF → devis immersif en quelques clics", desc:"Theya lit vos documents réceptifs et génère automatiquement un itinéraire structuré et un devis web immersif, prêt à envoyer." },
-    { icon:"✍️", title:"Signature + paiement intégrés", desc:"ADYEN + Usign : vos clients signent et paient directement depuis le devis, sans outil tiers. 1% Europe, 2% international." },
-    { icon:"📚", title:"Carnets, vouchers & appli mobile", desc:"Une fois le devis validé, Cocohop génère automatiquement tous vos documents voyage — carnet, livret, vouchers — et les met à disposition sur l'app mobile." },
-    { icon:"🔗", title:"Connecteurs comptables en approche", desc:"Facturation électronique (mi-avril) et exports Pennylane/Sage (avant l'été) — Cocohop s'intégrera dans votre workflow comptable dès le lancement." },
+    { icon:"✍️", title:"Signature + paiement intégrés", desc:"ADYEN + Usign : vos clients signent et paient directement depuis le devis. 1% Europe, 2% international." },
+    { icon:"📚", title:"Carnets, vouchers & appli mobile", desc:"Une fois le devis validé, Cocohop génère automatiquement carnets, livrets, vouchers et les met à disposition sur l'app mobile." },
+    { icon:"🔗", title:"Connecteurs comptables en approche", desc:"Facturation électronique (mi-avril) et exports Pennylane/Sage (avant l'été) — Cocohop s'intégrera dans votre workflow dès le lancement." },
   ],
 };
 // ============================================================
+
+// Récap personnalisé selon la typologie
+const recapByType = {
+  "Producteur": [
+    { icon:"🧠", title:"Le Travel Operating Intelligence System", desc:"Vous avez découvert notre TOIS : un système opérant intelligent où l'itinéraire est l'élément central et pilote toute la chaîne de production." },
+    { icon:"🤖", title:"IA intégrée aux workflows", desc:"Comment Theya s'intègre nativement à vos processus : pilotage fournisseurs, réservations, passation prod → résa — sans rupture dans votre façon de travailler." },
+    { icon:"⚡", title:"Jusqu'à 80% de temps gagné", desc:"Sur les tâches les plus chronophages — rédaction des carnets, versioning des dossiers, passation entre équipes — pour concentrer vos Travel Designers sur ce qui compte : créer des voyages d'exception." },
+    { icon:"🎁", title:"14 jours d'essai gratuit", desc:"Vous bénéficiez d'un accès complet au plan Synergy pendant 14 jours, sans carte bancaire requise." },
+  ],
+  "Distributeur": [
+    { icon:"🤖", title:"IA intégrée aux workflows", desc:"Vous avez découvert comment Theya s'intègre à votre façon de travailler — en transformant les programmes en documents premium à votre image, sans production à refaire de zéro." },
+    { icon:"📄", title:"Génération automatique de documents", desc:"Devis immersifs, carnets de voyage personnalisés, programmes clients générés en quelques minutes à partir des contenus de vos partenaires." },
+    { icon:"⚡", title:"Jusqu'à 80% de temps gagné", desc:"Sur la mise en forme des devis et l'assemblage des carnets, pour vous concentrer sur ce qui compte vraiment : le conseil et la relation client. 30% de conversion en plus prouvé." },
+    { icon:"🎁", title:"14 jours d'essai gratuit", desc:"Vous bénéficiez d'un accès complet au plan Studio pendant 14 jours, sans carte bancaire requise." },
+  ],
+};
+const recapType   = prospectProfile.type.includes("Producteur") ? "Producteur" : "Distributeur";
+const recapPoints = recapByType[recapType];
 
 const plans = [
   {
@@ -101,86 +120,101 @@ const Check = () => React.createElement('svg',{width:16,height:16,viewBox:"0 0 1
   React.createElement('path',{d:"M5 8l2 2 4-4",stroke:TEAL,strokeWidth:1.5,strokeLinecap:"round",strokeLinejoin:"round"}));
 
 function App() {
-  const [billing, setBilling] = React.useState("annual");
-  const [openFaq, setOpenFaq] = React.useState(null);
-  const name = prospectProfile.name.split(' ')[0];
+  const [billing,  setBilling]  = React.useState("annual");
+  const [openFaq,  setOpenFaq]  = React.useState(null);
+  const firstName = prospectProfile.name.split(' ')[0];
 
-  return React.createElement('div', {style:{minHeight:"100vh",background:"#fff",color:TEXT,fontFamily:"'Montserrat Alternates','Helvetica Neue',sans-serif"}},
+  const h = (tag, props, ...children) => React.createElement(tag, props, ...children);
 
-    // NAV
-    React.createElement('header', {style:{padding:"16px 40px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:`1px solid ${BORDER}`,position:"sticky",top:0,zIndex:100,background:"rgba(255,255,255,.96)",backdropFilter:"blur(14px)"}},
-      React.createElement('img', {src:LOGO, alt:"Cocohop", style:{height:"28px",objectFit:"contain"}}),
-      React.createElement('a', {href:"https://app.cocohop.com/",target:"_blank",rel:"noopener noreferrer",style:{background:ORANGE,color:"#fff",padding:"9px 20px",borderRadius:"100px",fontSize:"13px",fontWeight:600,display:"inline-flex",alignItems:"center",gap:"6px"}},
-        "Démarrer gratuitement ", React.createElement(Arrow))
+  return h('div',{style:{minHeight:"100vh",background:"#fff",color:TEXT,fontFamily:"'Montserrat Alternates',sans-serif"}},
+
+    /* ── NAV ── */
+    h('header',{style:{padding:"16px 40px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:`1px solid ${BORDER}`,position:"sticky",top:0,zIndex:100,background:"rgba(255,255,255,.96)",backdropFilter:"blur(14px)"}},
+      h('img',{src:LOGO,alt:"Cocohop",style:{height:"28px",objectFit:"contain"}}),
+      h('a',{href:"https://app.cocohop.com/",target:"_blank",rel:"noopener noreferrer",style:{background:ORANGE,color:"#fff",padding:"9px 20px",borderRadius:"100px",fontSize:"13px",fontWeight:600,display:"inline-flex",alignItems:"center",gap:"6px"}},
+        "Démarrer gratuitement ", h(Arrow))
     ),
 
-    // HERO
-    React.createElement('section', {style:{maxWidth:"800px",margin:"0 auto",padding:"64px 32px 48px",textAlign:"center"}},
-      React.createElement('div', {className:"fu",style:{display:"inline-flex",alignItems:"center",gap:"8px",background:"rgba(221,89,32,.08)",border:"1px solid rgba(221,89,32,.2)",borderRadius:"100px",padding:"5px 16px",marginBottom:"22px"}},
-        React.createElement('span', {style:{width:6,height:6,borderRadius:"50%",background:ORANGE,display:"inline-block"}}),
-        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE}}, "Suite à votre démo Cocohop")
+    /* ── HERO ── */
+    h('section',{style:{maxWidth:"800px",margin:"0 auto",padding:"64px 32px 48px",textAlign:"center"}},
+      h('div',{className:"fu",style:{display:"inline-flex",alignItems:"center",gap:"8px",background:"rgba(221,89,32,.08)",border:"1px solid rgba(221,89,32,.2)",borderRadius:"100px",padding:"5px 16px",marginBottom:"22px"}},
+        h('span',{style:{width:6,height:6,borderRadius:"50%",background:ORANGE,display:"inline-block"}}),
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE}}, "Suite à votre démo Cocohop")
       ),
-      React.createElement('h1', {className:"fu",style:{fontSize:"44px",fontWeight:700,lineHeight:1.1,marginBottom:"18px",color:TEXT}},
-        `Merci ${name} pour`, React.createElement('br'),
-        React.createElement('span', {style:{background:`linear-gradient(135deg,${ORANGE},${TEAL})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",fontStyle:"italic",fontWeight:600}}, "ce temps d'échange !")
+      h('h1',{className:"fu",style:{fontSize:"44px",fontWeight:700,lineHeight:1.1,marginBottom:"18px",color:TEXT}},
+        `Merci ${firstName} pour`, h('br'),
+        h('span',{style:{background:`linear-gradient(135deg,${ORANGE},${TEAL})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",fontStyle:"italic",fontWeight:600}},
+          "ce temps d'échange !")
       ),
-      React.createElement('p', {className:"fu",style:{fontSize:"16px",color:MUTED,lineHeight:1.75,marginBottom:"36px"}},
+      h('p',{className:"fu",style:{fontSize:"16px",color:MUTED,lineHeight:1.75,marginBottom:"36px"}},
         "Retrouvez ici tous les liens, tarifs et informations discutés lors de notre échange."
       ),
-      React.createElement('div', {className:"fu",style:{display:"flex",justifyContent:"center",gap:"36px",flexWrap:"wrap",padding:"24px 32px",background:CARD,border:`1px solid ${BORDER}`,borderRadius:"18px"}},
+      h('div',{className:"fu",style:{display:"flex",justifyContent:"center",gap:"36px",flexWrap:"wrap",padding:"24px 32px",background:CARD,border:`1px solid ${BORDER}`,borderRadius:"18px"}},
         [["80%","sur les tâches les plus chronophages",ORANGE],["30%","de conversion en plus",TEAL],["50M+","ressources dispo",ORANGE]].map(([v,l,c]) =>
-          React.createElement('div', {key:l,style:{textAlign:"center"}},
-            React.createElement('div', {style:{fontSize:"26px",fontWeight:700,color:c}}, v),
-            React.createElement('div', {style:{fontSize:"12px",color:MUTED,marginTop:"3px"}}, l)
+          h('div',{key:l,style:{textAlign:"center"}},
+            h('div',{style:{fontSize:"26px",fontWeight:700,color:c}},v),
+            h('div',{style:{fontSize:"12px",color:MUTED,marginTop:"3px"}},l)
           )
         )
       )
     ),
 
-    // BANNER
-    React.createElement('section', {style:{maxWidth:"900px",margin:"0 auto 64px",padding:"0 32px"}},
-      React.createElement('div', {style:{borderRadius:"20px",overflow:"hidden",border:`1px solid ${BORDER}`,boxShadow:"0 4px 40px rgba(221,89,32,.07)"}},
-        React.createElement('img', {src:BANNER,alt:"Cocohop",style:{width:"100%",display:"block",background:"#f4f4f4"}})
+    /* ── BANNER ── */
+    h('section',{style:{maxWidth:"900px",margin:"0 auto 64px",padding:"0 32px"}},
+      h('div',{style:{borderRadius:"20px",overflow:"hidden",border:`1px solid ${BORDER}`,boxShadow:"0 4px 40px rgba(221,89,32,.07)"}},
+        h('img',{src:BANNER,alt:"Cocohop plateforme",style:{width:"100%",display:"block",background:"#f4f4f4"}})
       )
     ),
 
-    // PROFIL PROSPECT
-    React.createElement('section', {style:{maxWidth:"860px",margin:"0 auto",padding:"0 32px 64px"}},
-      React.createElement('div', {style:{textAlign:"center",marginBottom:"28px"}},
-        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE}}, "Fait pour vous"),
-        React.createElement('h2', {style:{fontSize:"32px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Votre profil & vos enjeux")
+    /* ── PROFIL PROSPECT ── */
+    h('section',{style:{maxWidth:"860px",margin:"0 auto",padding:"0 32px 64px"}},
+      h('div',{style:{textAlign:"center",marginBottom:"28px"}},
+        h('h2',{style:{fontSize:"32px",fontWeight:700,marginTop:"8px",color:TEXT}}, prospectProfile.name)
       ),
-      React.createElement('div', {style:{background:`linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))`,border:`1px solid rgba(221,89,32,.15)`,borderRadius:"20px",padding:"28px 32px",marginBottom:"24px",display:"flex",alignItems:"center",gap:"20px",flexWrap:"wrap"}},
-        React.createElement('div', {style:{width:56,height:56,borderRadius:"14px",background:ORANGE,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"22px",flexShrink:0}}, "🏢"),
-        React.createElement('div', {style:{flex:1}},
-          React.createElement('div', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE,marginBottom:"4px"}}, prospectProfile.type),
-          React.createElement('div', {style:{fontSize:"18px",fontWeight:700,color:TEXT,marginBottom:"3px"}}, prospectProfile.company),
-          React.createElement('div', {style:{fontSize:"13px",color:MUTED,lineHeight:1.6}}, prospectProfile.context)
+      // Carte entreprise
+      h('div',{style:{background:`linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))`,border:`1px solid rgba(221,89,32,.15)`,borderRadius:"20px",padding:"28px 32px",marginBottom:"32px",display:"flex",alignItems:"center",gap:"20px",flexWrap:"wrap"}},
+        h('div',{style:{width:56,height:56,borderRadius:"14px",background:ORANGE,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"22px",flexShrink:0}}, "🏢"),
+        h('div',{style:{flex:1}},
+          h('div',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE,marginBottom:"4px"}}, prospectProfile.type),
+          h('div',{style:{fontSize:"18px",fontWeight:700,color:TEXT,marginBottom:"3px"}}, prospectProfile.company),
+          h('div',{style:{fontSize:"13px",color:MUTED,lineHeight:1.6}}, prospectProfile.context)
         )
       ),
-      React.createElement('div', {style:{marginBottom:"24px"}},
-        React.createElement('div', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED,marginBottom:"14px"}}, "Vos défis identifiés"),
-        React.createElement('div', {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px"}},
+      // Défis
+      h('div',{style:{marginBottom:"32px"}},
+        h('div',{style:{display:"flex",alignItems:"center",gap:"10px",marginBottom:"14px"}},
+          h('div',{style:{padding:"6px 14px",background:ORANGE,borderRadius:"100px",display:"inline-flex",alignItems:"center",gap:"6px"}},
+            h('span',{style:{fontSize:"12px",fontWeight:700,color:"#fff"}}, "🎯 Vos défis identifiés")
+          ),
+          h('div',{style:{height:"1px",flex:1,background:`linear-gradient(to right,rgba(221,89,32,.3),transparent)`}})
+        ),
+        h('div',{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px"}},
           prospectProfile.challenges.map((c,i) =>
-            React.createElement('div', {key:i,style:{display:"flex",alignItems:"flex-start",gap:"12px",padding:"16px",borderRadius:"14px",background:"rgba(255,70,70,.03)",border:"1px solid rgba(255,70,70,.1)"}},
-              React.createElement('span', {style:{fontSize:"20px",flexShrink:0}}, c.icon),
-              React.createElement('div', null,
-                React.createElement('div', {style:{fontSize:"13px",fontWeight:600,color:TEXT,marginBottom:"4px"}}, c.title),
-                React.createElement('div', {style:{fontSize:"12px",color:MUTED,lineHeight:1.55}}, c.desc)
+            h('div',{key:i,style:{display:"flex",alignItems:"flex-start",gap:"12px",padding:"16px",borderRadius:"14px",background:"rgba(255,70,70,.03)",border:"1px solid rgba(255,70,70,.12)",boxShadow:"0 2px 8px rgba(221,89,32,.05)"}},
+              h('span',{style:{fontSize:"20px",flexShrink:0}},c.icon),
+              h('div',null,
+                h('div',{style:{fontSize:"13px",fontWeight:600,color:TEXT,marginBottom:"4px"}},c.title),
+                h('div',{style:{fontSize:"12px",color:MUTED,lineHeight:1.55}},c.desc)
               )
             )
           )
         )
       ),
-      React.createElement('div', null,
-        React.createElement('div', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:TEAL,marginBottom:"14px"}}, "Ce que Cocohop apporte concrètement"),
-        React.createElement('div', {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px"}},
+      // Bénéfices
+      h('div',null,
+        h('div',{style:{display:"flex",alignItems:"center",gap:"10px",marginBottom:"14px"}},
+          h('div',{style:{padding:"6px 14px",background:TEAL,borderRadius:"100px",display:"inline-flex",alignItems:"center",gap:"6px"}},
+            h('span',{style:{fontSize:"12px",fontWeight:700,color:"#fff"}}, "✨ Ce que Cocohop apporte concrètement")
+          ),
+          h('div',{style:{height:"1px",flex:1,background:`linear-gradient(to right,rgba(9,127,120,.3),transparent)`}})
+        ),
+        h('div',{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px"}},
           prospectProfile.benefits.map((b,i) =>
-            React.createElement('div', {key:i,style:{display:"flex",alignItems:"flex-start",gap:"12px",padding:"16px",borderRadius:"14px",background:"rgba(9,127,120,.04)",border:"1px solid rgba(9,127,120,.12)"}},
-              React.createElement('span', {style:{fontSize:"20px",flexShrink:0}}, b.icon),
-              React.createElement('div', null,
-                React.createElement('div', {style:{fontSize:"13px",fontWeight:600,color:TEXT,marginBottom:"4px"}}, b.title),
-                React.createElement('div', {style:{fontSize:"12px",color:MUTED,lineHeight:1.55}}, b.desc)
+            h('div',{key:i,style:{display:"flex",alignItems:"flex-start",gap:"12px",padding:"16px",borderRadius:"14px",background:"rgba(9,127,120,.04)",border:"1px solid rgba(9,127,120,.15)",boxShadow:"0 2px 8px rgba(9,127,120,.05)"}},
+              h('span',{style:{fontSize:"20px",flexShrink:0}},b.icon),
+              h('div',null,
+                h('div',{style:{fontSize:"13px",fontWeight:600,color:TEXT,marginBottom:"4px"}},b.title),
+                h('div',{style:{fontSize:"12px",color:MUTED,lineHeight:1.55}},b.desc)
               )
             )
           )
@@ -188,149 +222,145 @@ function App() {
       )
     ),
 
-    // RÉCAP DÉMO
-    React.createElement('section', {style:{maxWidth:"860px",margin:"0 auto",padding:"0 32px 64px"}},
-      React.createElement('div', {style:{textAlign:"center",marginBottom:"28px"}},
-        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:TEAL}}, "Ce qu'on a vu ensemble"),
-        React.createElement('h2', {style:{fontSize:"32px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Récap de votre démo")
+    /* ── RÉCAP DÉMO ── */
+    h('section',{style:{maxWidth:"860px",margin:"0 auto",padding:"0 32px 64px"}},
+      h('div',{style:{textAlign:"center",marginBottom:"28px"}},
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:TEAL}}, "Ce qu'on a vu ensemble"),
+        h('h2',{style:{fontSize:"32px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Récap de votre démo")
       ),
-      React.createElement('div', {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"12px"}},
-        [
-          {icon:"🤖",title:"IA intégrée aux workflows",desc:"Vous avez découvert comment Theya s'intègre nativement à vos processus de production, sans rupture dans votre façon de travailler."},
-          {icon:"📄",title:"Génération automatique de documents",desc:"Devis, itinéraires, carnets de voyage — générés en quelques secondes à partir de vos contenus existants."},
-          {icon:"⚡",title:"Jusqu'à 80% de temps gagné",desc:"Sur les tâches les plus chronophages, pour vous concentrer sur ce qui compte vraiment : le conseil et la relation client."},
-          {icon:"🎁",title:"14 jours d'essai gratuit",desc:"Vous bénéficiez d'un accès complet au plan Synergy pendant 14 jours, sans carte bancaire requise."},
-        ].map((p,i) =>
-          React.createElement('div', {key:i,className:"card",style:{background:"#fff",border:`1px solid ${BORDER}`,borderRadius:"16px",padding:"24px",boxShadow:"0 2px 12px rgba(0,0,0,.05)"}},
-            React.createElement('div', {style:{fontSize:"26px",marginBottom:"12px"}}, p.icon),
-            React.createElement('h4', {style:{fontSize:"14px",fontWeight:600,marginBottom:"7px",color:TEXT}}, p.title),
-            React.createElement('p', {style:{fontSize:"13px",color:MUTED,lineHeight:1.65}}, p.desc)
+      h('div',{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"12px"}},
+        recapPoints.map((p,i) =>
+          h('div',{key:i,className:"card",style:{background:"#fff",border:`1px solid ${BORDER}`,borderRadius:"16px",padding:"24px",boxShadow:"0 2px 12px rgba(0,0,0,.05)"}},
+            h('div',{style:{fontSize:"26px",marginBottom:"12px"}},p.icon),
+            h('h4',{style:{fontSize:"14px",fontWeight:600,marginBottom:"7px",color:TEXT}},p.title),
+            h('p',{style:{fontSize:"13px",color:MUTED,lineHeight:1.65}},p.desc)
           )
         )
       )
     ),
 
-    // FAQ
-    React.createElement('section', {style:{maxWidth:"760px",margin:"0 auto",padding:"0 32px 64px"}},
-      React.createElement('div', {style:{textAlign:"center",marginBottom:"28px"}},
-        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Questions fréquentes"),
-        React.createElement('h2', {style:{fontSize:"32px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Vos questions")
+    /* ── FAQ ── */
+    h('section',{style:{maxWidth:"760px",margin:"0 auto",padding:"0 32px 64px"}},
+      h('div',{style:{textAlign:"center",marginBottom:"28px"}},
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Questions fréquentes"),
+        h('h2',{style:{fontSize:"32px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Vos questions")
       ),
-      React.createElement('div', {style:{display:"flex",flexDirection:"column",gap:"8px"}},
+      h('div',{style:{display:"flex",flexDirection:"column",gap:"8px"}},
         faq.map((item,i) =>
-          React.createElement('div', {key:i,style:{background:"#fff",border:`1px solid ${openFaq===i?"rgba(221,89,32,.3)":BORDER}`,borderRadius:"14px",overflow:"hidden",boxShadow:openFaq===i?"0 4px 20px rgba(221,89,32,.07)":"0 1px 4px rgba(0,0,0,.04)",transition:"all .2s"}},
-            React.createElement('button', {onClick:()=>setOpenFaq(openFaq===i?null:i),style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"18px 22px",background:"none",border:"none",textAlign:"left",gap:"12px"}},
-              React.createElement('span', {style:{fontSize:"14px",fontWeight:600,color:TEXT,lineHeight:1.4}}, item.q),
-              React.createElement('span', {style:{width:24,height:24,borderRadius:"50%",background:openFaq===i?ORANGE:CARD,border:`1px solid ${openFaq===i?ORANGE:BORDER}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .2s",color:openFaq===i?"#fff":MUTED,fontSize:"14px",fontWeight:600}},
+          h('div',{key:i,style:{background:"#fff",border:`1px solid ${openFaq===i?"rgba(221,89,32,.3)":BORDER}`,borderRadius:"14px",overflow:"hidden",transition:"all .2s"}},
+            h('button',{onClick:()=>setOpenFaq(openFaq===i?null:i),style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"18px 22px",background:"none",border:"none",textAlign:"left",gap:"12px"}},
+              h('span',{style:{fontSize:"14px",fontWeight:600,color:TEXT,lineHeight:1.4}},item.q),
+              h('span',{style:{width:24,height:24,borderRadius:"50%",background:openFaq===i?ORANGE:CARD,border:`1px solid ${openFaq===i?ORANGE:BORDER}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,color:openFaq===i?"#fff":MUTED,fontSize:"14px",fontWeight:600,transition:"all .2s"}},
                 openFaq===i?"×":"+"
               )
             ),
-            openFaq===i && React.createElement('div', {style:{padding:"14px 22px 18px",fontSize:"13px",color:MUTED,lineHeight:1.75,whiteSpace:"pre-line",borderTop:`1px solid ${BORDER}`}}, item.a)
+            openFaq===i && h('div',{style:{padding:"14px 22px 18px",fontSize:"13px",color:MUTED,lineHeight:1.75,whiteSpace:"pre-line",borderTop:`1px solid ${BORDER}`}},item.a)
           )
         )
       )
     ),
 
-    // PRICING
-    React.createElement('section', {style:{maxWidth:"1000px",margin:"0 auto",padding:"0 32px 64px"}},
-      React.createElement('div', {style:{textAlign:"center",marginBottom:"32px"}},
-        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Tarifs"),
-        React.createElement('h2', {style:{fontSize:"32px",fontWeight:700,margin:"8px 0 6px",color:TEXT}}, "Choisissez votre plan"),
-        React.createElement('p', {style:{fontSize:"13px",color:MUTED,marginBottom:"20px"}}, "14 jours d'essai gratuit sur le plan Synergy — sans carte bancaire"),
-        React.createElement('div', {style:{display:"inline-flex",background:CARD,border:`1px solid ${BORDER}`,borderRadius:"100px",padding:"3px"}},
+    /* ── PRICING ── */
+    h('section',{style:{maxWidth:"1000px",margin:"0 auto",padding:"0 32px 64px"}},
+      h('div',{style:{textAlign:"center",marginBottom:"32px"}},
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Tarifs"),
+        h('h2',{style:{fontSize:"32px",fontWeight:700,margin:"8px 0 6px",color:TEXT}}, "Choisissez votre plan"),
+        h('p',{style:{fontSize:"13px",color:MUTED,marginBottom:"20px"}}, "14 jours d'essai gratuit — sans carte bancaire"),
+        h('div',{style:{display:"inline-flex",background:CARD,border:`1px solid ${BORDER}`,borderRadius:"100px",padding:"3px"}},
           [["monthly","Mensuel",null],["annual","Annuel","-20%"]].map(([b,l,badge]) =>
-            React.createElement('button', {key:b,onClick:()=>setBilling(b),style:{padding:"7px 18px",borderRadius:"100px",fontSize:"13px",fontWeight:500,background:billing===b?TEXT:"transparent",color:billing===b?"#fff":MUTED,display:"inline-flex",alignItems:"center",gap:"5px",border:"none",transition:"all .15s"}},
-              l, badge && React.createElement('span', {style:{fontSize:"10px",background:TEAL,color:"#fff",padding:"2px 6px",borderRadius:"100px",fontWeight:700}}, badge)
+            h('button',{key:b,onClick:()=>setBilling(b),style:{padding:"7px 18px",borderRadius:"100px",fontSize:"13px",fontWeight:500,background:billing===b?TEXT:"transparent",color:billing===b?"#fff":MUTED,display:"inline-flex",alignItems:"center",gap:"5px",border:"none",transition:"all .15s"}},
+              l, badge && h('span',{style:{fontSize:"10px",background:TEAL,color:"#fff",padding:"2px 6px",borderRadius:"100px",fontWeight:700}},badge)
             )
           )
         )
       ),
-      React.createElement('div', {style:{display:"flex",gap:"14px",alignItems:"stretch"}},
+      h('div',{style:{display:"flex",gap:"14px",alignItems:"stretch"}},
         plans.map(plan =>
-          React.createElement('div', {key:plan.name,className:"card",style:{flex:1,borderRadius:"20px",padding:"26px",background:plan.pop?"rgba(221,89,32,.04)":"#fff",border:plan.pop?"1.5px solid rgba(221,89,32,.3)":`1px solid ${BORDER}`,display:"flex",flexDirection:"column",position:"relative",boxShadow:plan.pop?"0 4px 32px rgba(221,89,32,.1)":"0 2px 12px rgba(0,0,0,.05)"}},
-            plan.badge && React.createElement('div', {style:{position:"absolute",top:"-11px",left:"50%",transform:"translateX(-50%)",background:ORANGE,color:"#fff",padding:"3px 12px",borderRadius:"100px",fontSize:"10px",fontWeight:700,whiteSpace:"nowrap"}}, `✦ ${plan.badge}`),
-            React.createElement('div', {style:{textAlign:"center",marginBottom:"14px",paddingBottom:"14px",borderBottom:`1px solid ${BORDER}`}},
-              React.createElement('div', {style:{fontSize:"22px",fontWeight:400,color:TEXT,fontStyle:plan.subtitle?"italic":"normal"}}, plan.name),
-              plan.subtitle && React.createElement('div', {style:{fontSize:"18px",fontWeight:600,color:TEXT,marginTop:"2px"}}, plan.subtitle),
-              React.createElement('div', {style:{fontSize:"12px",color:MUTED,marginTop:"6px",lineHeight:1.5}}, plan.tag)
+          h('div',{key:plan.name,className:"card",style:{flex:1,borderRadius:"20px",padding:"26px",background:plan.pop?"rgba(221,89,32,.04)":"#fff",border:plan.pop?"1.5px solid rgba(221,89,32,.3)":`1px solid ${BORDER}`,display:"flex",flexDirection:"column",position:"relative",boxShadow:plan.pop?"0 4px 32px rgba(221,89,32,.1)":"0 2px 12px rgba(0,0,0,.05)"}},
+            plan.badge && h('div',{style:{position:"absolute",top:"-11px",left:"50%",transform:"translateX(-50%)",background:ORANGE,color:"#fff",padding:"3px 12px",borderRadius:"100px",fontSize:"10px",fontWeight:700,whiteSpace:"nowrap"}},`✦ ${plan.badge}`),
+            h('div',{style:{textAlign:"center",marginBottom:"14px",paddingBottom:"14px",borderBottom:`1px solid ${BORDER}`}},
+              h('div',{style:{fontSize:"22px",fontWeight:400,color:TEXT,fontStyle:plan.subtitle?"italic":"normal"}},plan.name),
+              plan.subtitle && h('div',{style:{fontSize:"18px",fontWeight:600,color:TEXT,marginTop:"2px"}},plan.subtitle),
+              h('div',{style:{fontSize:"12px",color:MUTED,marginTop:"6px",lineHeight:1.5}},plan.tag)
             ),
-            React.createElement('div', {style:{marginBottom:"14px"}},
-              React.createElement('div', {style:{display:"flex",alignItems:"baseline",gap:"3px"}},
-                React.createElement('span', {style:{fontSize:"32px",fontWeight:700,color:ORANGE}}, `€${billing==="annual"?plan.annual:plan.monthly}`),
-                React.createElement('span', {style:{fontSize:"11px",color:MUTED}}, `HT ${plan.unit}`)
+            h('div',{style:{marginBottom:"14px"}},
+              h('div',{style:{display:"flex",alignItems:"baseline",gap:"3px"}},
+                h('span',{style:{fontSize:"32px",fontWeight:700,color:ORANGE}},`€${billing==="annual"?plan.annual:plan.monthly}`),
+                h('span',{style:{fontSize:"11px",color:MUTED}},`HT ${plan.unit}`)
               ),
-              React.createElement('div', {style:{fontSize:"11px",color:MUTED,marginTop:"2px"}},
+              h('div',{style:{fontSize:"11px",color:MUTED,marginTop:"2px"}},
                 billing==="annual"?`Soit ${plan.annualStr}`:"Facturation mensuelle",
                 plan.name==="Studio"?" · Puis +25€HT/mois par utilisateur supp.":"",
                 plan.name==="Synergy"?" · Puis +30€HT/mois par utilisateur supp.":""
               )
             ),
-            React.createElement('p', {style:{fontSize:"12px",color:MUTED,lineHeight:1.6,marginBottom:"16px"}}, plan.desc),
-            React.createElement('a', {href:"https://app.cocohop.com/",target:"_blank",rel:"noopener noreferrer",style:{display:"flex",alignItems:"center",justifyContent:"center",gap:"6px",padding:"11px",borderRadius:"100px",background:plan.pop?ORANGE:"rgba(0,0,0,.07)",color:plan.pop?"#fff":TEXT,fontSize:"12px",fontWeight:700,marginBottom:"18px"}}, plan.cta),
-            plan.features.length>0 && React.createElement('div', {style:{marginBottom:plan.options.length>0?"14px":0}},
-              React.createElement('div', {style:{fontSize:"10px",fontWeight:700,letterSpacing:".08em",textTransform:"uppercase",color:MUTED,marginBottom:"8px"}}, "Inclus"),
-              React.createElement('ul', {style:{listStyle:"none"}},
-                plan.features.map(f => React.createElement('li', {key:f,style:{display:"flex",alignItems:"flex-start",gap:"7px",padding:"5px 0",fontSize:"12px",color:MUTED,borderBottom:`1px solid ${BORDER}`}},
-                  React.createElement(Check), React.createElement('span', null, f)
+            h('p',{style:{fontSize:"12px",color:MUTED,lineHeight:1.6,marginBottom:"16px"}},plan.desc),
+            h('a',{href:"https://app.cocohop.com/",target:"_blank",rel:"noopener noreferrer",style:{display:"flex",alignItems:"center",justifyContent:"center",gap:"6px",padding:"11px",borderRadius:"100px",background:plan.pop?ORANGE:"rgba(0,0,0,.07)",color:plan.pop?"#fff":TEXT,fontSize:"12px",fontWeight:700,marginBottom:"18px"}},plan.cta),
+            plan.features.length>0 && h('div',{style:{marginBottom:plan.options.length>0?"14px":0}},
+              h('div',{style:{fontSize:"10px",fontWeight:700,letterSpacing:".08em",textTransform:"uppercase",color:MUTED,marginBottom:"8px"}},"Inclus"),
+              h('ul',{style:{listStyle:"none"}},
+                plan.features.map(f => h('li',{key:f,style:{display:"flex",alignItems:"flex-start",gap:"7px",padding:"5px 0",fontSize:"12px",color:MUTED,borderBottom:`1px solid ${BORDER}`}},
+                  h(Check), h('span',null,f)
                 ))
               )
             ),
-            plan.options.length>0 && React.createElement('div', null,
-              React.createElement('div', {style:{fontSize:"10px",fontWeight:700,letterSpacing:".08em",textTransform:"uppercase",color:TEAL,marginBottom:"8px"}}, "Options"),
-              React.createElement('ul', {style:{listStyle:"none"}},
-                plan.options.map(o => React.createElement('li', {key:o,style:{display:"flex",alignItems:"flex-start",gap:"7px",padding:"5px 0",fontSize:"12px",color:MUTED,borderBottom:`1px solid ${BORDER}`}},
-                  React.createElement('span', {style:{color:TEAL,flexShrink:0}}, "+"), React.createElement('span', null, o)
+            plan.options.length>0 && h('div',null,
+              h('div',{style:{fontSize:"10px",fontWeight:700,letterSpacing:".08em",textTransform:"uppercase",color:TEAL,marginBottom:"8px"}},"Options"),
+              h('ul',{style:{listStyle:"none"}},
+                plan.options.map(o => h('li',{key:o,style:{display:"flex",alignItems:"flex-start",gap:"7px",padding:"5px 0",fontSize:"12px",color:MUTED,borderBottom:`1px solid ${BORDER}`}},
+                  h('span',{style:{color:TEAL,flexShrink:0}},"+"), h('span',null,o)
                 ))
               )
             )
           )
         )
       ),
-      React.createElement('p', {style:{textAlign:"center",fontSize:"11px",color:MUTED,marginTop:"14px"}}, "Prix HT · Sans engagement sur le plan mensuel")
+      h('p',{style:{textAlign:"center",fontSize:"11px",color:MUTED,marginTop:"14px"}},"Prix HT · Sans engagement sur le plan mensuel")
     ),
 
-    // CONTACT
-    React.createElement('section', {style:{maxWidth:"860px",margin:"0 auto",padding:"0 32px 72px"}},
-      React.createElement('div', {style:{background:"linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))",border:"1px solid rgba(221,89,32,.18)",borderRadius:"22px",padding:"36px"}},
-        React.createElement('div', {style:{background:"rgba(9,127,120,.06)",border:"1px solid rgba(9,127,120,.2)",borderRadius:"14px",padding:"20px 24px",marginBottom:"28px",display:"flex",alignItems:"center",gap:"18px",flexWrap:"wrap"}},
-          React.createElement('div', {style:{fontSize:"32px"}}, "🛠️"),
-          React.createElement('div', {style:{flex:1}},
-            React.createElement('div', {style:{fontSize:"13px",fontWeight:700,color:TEXT,marginBottom:"4px"}}, "Atelier de construction d'itinéraires"),
-            React.createElement('div', {style:{fontSize:"12px",color:MUTED,lineHeight:1.6}}, "Réservez un atelier pratique avec Alexandre pour construire votre premier itinéraire sur Cocohop, ensemble, en live.")
+    /* ── CONTACT ── */
+    h('section',{style:{maxWidth:"860px",margin:"0 auto",padding:"0 32px 72px"}},
+      h('div',{style:{background:"linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))",border:"1px solid rgba(221,89,32,.18)",borderRadius:"22px",padding:"36px"}},
+        // Atelier
+        h('div',{style:{background:"rgba(9,127,120,.06)",border:"1px solid rgba(9,127,120,.2)",borderRadius:"14px",padding:"20px 24px",marginBottom:"28px",display:"flex",alignItems:"center",gap:"18px",flexWrap:"wrap"}},
+          h('div',{style:{fontSize:"32px"}},"🛠️"),
+          h('div',{style:{flex:1}},
+            h('div',{style:{fontSize:"13px",fontWeight:700,color:TEXT,marginBottom:"4px"}},"Atelier de construction d'itinéraires"),
+            h('div',{style:{fontSize:"12px",color:MUTED,lineHeight:1.6}},"Réservez un atelier pratique avec Alexandre pour construire votre premier itinéraire sur Cocohop, ensemble, en live.")
           ),
-          React.createElement('a', {href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"9px 18px",borderRadius:"100px",flexShrink:0,background:TEAL,color:"#fff",fontSize:"12px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"6px",whiteSpace:"nowrap"}},
-            "📅 Booker l'atelier ", React.createElement(Arrow))
+          h('a',{href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"9px 18px",borderRadius:"100px",flexShrink:0,background:TEAL,color:"#fff",fontSize:"12px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"6px",whiteSpace:"nowrap"}},
+            "📅 Booker l'atelier ", h(Arrow))
         ),
-        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE,display:"block",marginBottom:"8px"}}, "Votre interlocuteur"),
-        React.createElement('h2', {style:{fontSize:"28px",fontWeight:700,marginBottom:"24px",color:TEXT}}, "Une question ? Je suis là."),
-        React.createElement('div', {style:{display:"flex",alignItems:"center",gap:"22px",flexWrap:"wrap"}},
-          React.createElement('div', {style:{width:64,height:64,borderRadius:"16px",flexShrink:0,background:"#fff",border:`1px solid ${BORDER}`,display:"flex",alignItems:"center",justifyContent:"center",padding:"10px"}},
-            React.createElement('img', {src:LOGO,alt:"Cocohop",style:{width:"100%",objectFit:"contain"}})
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE,display:"block",marginBottom:"8px"}},"Votre interlocuteur"),
+        h('h2',{style:{fontSize:"28px",fontWeight:700,marginBottom:"24px",color:TEXT}},"Une question ? Je suis là."),
+        h('div',{style:{display:"flex",alignItems:"center",gap:"22px",flexWrap:"wrap"}},
+          h('div',{style:{width:64,height:64,borderRadius:"16px",flexShrink:0,background:"#fff",border:`1px solid ${BORDER}`,display:"flex",alignItems:"center",justifyContent:"center",padding:"10px"}},
+            h('img',{src:LOGO,alt:"Cocohop",style:{width:"100%",objectFit:"contain"}})
           ),
-          React.createElement('div', {style:{flex:1,minWidth:"160px"}},
-            React.createElement('div', {style:{fontSize:"18px",fontWeight:600,marginBottom:"2px",color:TEXT}}, "Alexandre Rab"),
-            React.createElement('div', {style:{fontSize:"12px",color:MUTED,marginBottom:"12px"}}, "Founding Account Executive · Cocohop"),
-            React.createElement('div', {style:{display:"flex",gap:"8px",flexWrap:"wrap"}},
-              React.createElement('a', {href:"mailto:alexandre@cocohop.com",style:{display:"inline-flex",alignItems:"center",gap:"5px",padding:"7px 14px",borderRadius:"100px",background:"#fff",border:`1px solid ${BORDER}`,color:TEXT,fontSize:"12px",fontWeight:500}}, "✉️ alexandre@cocohop.com"),
-              React.createElement('a', {href:"https://www.linkedin.com/in/alexandre-rab/",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:"5px",padding:"7px 14px",borderRadius:"100px",background:"rgba(10,102,194,.08)",border:"1px solid rgba(10,102,194,.2)",color:"#0a66c2",fontSize:"12px",fontWeight:500}},
-                React.createElement('svg',{width:12,height:12,viewBox:"0 0 24 24",fill:"#0a66c2"},React.createElement('path',{d:"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"}),React.createElement('circle',{cx:4,cy:4,r:2})),
+          h('div',{style:{flex:1,minWidth:"160px"}},
+            h('div',{style:{fontSize:"18px",fontWeight:600,marginBottom:"2px",color:TEXT}},"Alexandre Rab"),
+            h('div',{style:{fontSize:"12px",color:MUTED,marginBottom:"12px"}},"Founding Account Executive · Cocohop"),
+            h('div',{style:{display:"flex",gap:"8px",flexWrap:"wrap"}},
+              h('a',{href:"mailto:alexandre@cocohop.com",style:{display:"inline-flex",alignItems:"center",gap:"5px",padding:"7px 14px",borderRadius:"100px",background:"#fff",border:`1px solid ${BORDER}`,color:TEXT,fontSize:"12px",fontWeight:500}},"✉️ alexandre@cocohop.com"),
+              h('a',{href:"https://www.linkedin.com/in/alexandre-rab/",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:"5px",padding:"7px 14px",borderRadius:"100px",background:"rgba(10,102,194,.08)",border:"1px solid rgba(10,102,194,.2)",color:"#0a66c2",fontSize:"12px",fontWeight:500}},
+                h('svg',{width:12,height:12,viewBox:"0 0 24 24",fill:"#0a66c2"},h('path',{d:"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"}),h('circle',{cx:4,cy:4,r:2})),
                 "LinkedIn"
               )
             )
           ),
-          React.createElement('a', {href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"11px 20px",borderRadius:"100px",flexShrink:0,background:ORANGE,color:"#fff",fontSize:"13px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"6px"}},
-            "📅 Prendre un second rendez-vous ", React.createElement(Arrow))
+          h('a',{href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"11px 20px",borderRadius:"100px",flexShrink:0,background:ORANGE,color:"#fff",fontSize:"13px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"6px"}},
+            "📅 Prendre un second rendez-vous ", h(Arrow))
         )
       )
     ),
 
-    // FOOTER
-    React.createElement('footer', {style:{borderTop:`1px solid ${BORDER}`,padding:"22px 40px",maxWidth:"1000px",margin:"0 auto",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:"10px"}},
-      React.createElement('img', {src:LOGO,alt:"Cocohop",style:{height:"24px",objectFit:"contain"}}),
-      React.createElement('p', {style:{fontSize:"12px",color:MUTED}}, "© 2026 Cocohop — Made in 🇫🇷 avec 🧡 et 🥖"),
-      React.createElement('div', {style:{display:"flex",gap:"16px"}},
-        [["Site web","https://cocohop.com"],["CGU","https://cocohop.com/terms"],["Contact","https://cocohop.com/contact"]].map(([l,h]) =>
-          React.createElement('a', {key:l,href:h,style:{color:MUTED,fontSize:"12px"}}, l)
+    /* ── FOOTER ── */
+    h('footer',{style:{borderTop:`1px solid ${BORDER}`,padding:"22px 40px",maxWidth:"1000px",margin:"0 auto",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:"10px"}},
+      h('img',{src:LOGO,alt:"Cocohop",style:{height:"24px",objectFit:"contain"}}),
+      h('p',{style:{fontSize:"12px",color:MUTED}},"© 2026 Cocohop — Made in 🇫🇷 avec 🧡 et 🥖"),
+      h('div',{style:{display:"flex",gap:"16px"}},
+        [["Site web","https://cocohop.com"],["CGU","https://cocohop.com/terms"],["Contact","https://cocohop.com/contact"]].map(([l,url]) =>
+          h('a',{key:l,href:url,style:{color:MUTED,fontSize:"12px"}},l)
         )
       )
     )
