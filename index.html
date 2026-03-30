@@ -24,7 +24,7 @@
 <script type="text/babel">
 
 const LOGO   = "https://framerusercontent.com/images/FVWZ410oWWrBo9AQClCJz8zvFQM.svg?width=328&height=116";
-const BANNER = "https://framerusercontent.com/images/J33Eu6o0w5x0FCj8MyK1MqiONDQ.svg?width=1140&height=641";
+const BANNER = "https://prod-files-secure.s3.us-west-2.amazonaws.com/a981643f-a3fb-8192-a6fb-0003885c5ace/2beaab2e-3efc-4e82-bc90-ceec8439afaf/bkg-gradient-A4.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466TGDHEG7T%2F20260330%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260330T192147Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEGMaCXVzLXdlc3QtMiJHMEUCIQDla4ohJ%2BcB4gzau%2FCfKqnyjrmtosBbeMKPwGjhI6ZlNgIgfrzls72cJ1jbrYg7t3eE2%2FoDl5bbMszauMUVrT3mVdQq%2FwMILBAAGgw2Mzc0MjMxODM4MDUiDFAQF2JhRmbr91rTFSrcA55JT7Wi%2BVGCrmdxBe%2FZhzhgzmU%2FkrBeqVimJv0bJ%2B%2BzpAgJfIK%2FLRBgI52PyZt1%2BMUb3V7WxHuRCTEukmEgg7PyuO5BaKvVt2%2BBAeXVlStBNe1jIYmuIJLtW9aaaleIFQjfOHu%2FJFlWbguNCFjYzoRO1s067WQxT%2F9D%2FLLOSk5su4vPs5Vb3jpU50Bzbv809OtvpI7RulvpynYhFyIhXSeNUSOkJOYTGgJwSAu8NNTF%2BQXlL51N7ljpX1lLps8xflVM%2F0DtWHwUeBtjQYN%2Fm3gRKMYnZRCT593mWehRhc1UpqndbjUdAVcw6YCSApeEK69DjI1t%2BvHwTIyExEGjQ8%2FdgEy84Tpw%2BXK%2BfPM0btVI%2BSRZYkM%2BInfp7JUeb6KFcsy4S53h8C8jbOnEfVwccYoZmgxGirdhqhIPrQlPi3Gchyor4DrvKGj3BQh%2BWVitvvK84xr0xrod3t4IZyPdgds28Zs8ZSNlzZ%2BXBWApE9vSfSCFmsRRlDfRVGu5zWT6RqAuHMCFHM3hZBmGoJNDvZzEI7%2BEhQoeNAwnPTiQw0WOVStc2feOGygraC9ogW3Bo2aEFRyhxVKgEmqbTmma6P8E6iLrsZi6q3O1cVg8cV1TlrcktR4MXC9dgDT9MMWEq84GOqUB17lCcfwMaajAkjax1SBo3NDyUTcCbJDPPmjQAxnFEt2h5yeCq3enncqxJArDxNcGHSu%2BXqeIj6qDO2YFNaW5A5WfVOPP4Ki4WPWYAFT53hx4U10ty4R6pyhgQF2OgSKQjWFrGPDJBVb7aYYlNd3ebTl%2Bzaa%2B5JrpDGx36BqTEQtgD8HPM7NdsYrdGuYG7DuZ9TNnuBQ1J4vlkMpKeoSCcJyUgfTL&X-Amz-Signature=a9d448425b5739328118a3569672672c2c8556e334f6f4f1551ca52112b25273&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject";
 const ORANGE = "#DD5920";
 const TEAL   = "#097F78";
 const DARK   = "#0E1E2B";
@@ -80,7 +80,6 @@ const plans = [
     desc:"Converser avec une IA développée pour les pros du voyage",
     cta:"Converser avec Theya", pop:false,
     features:["Utilisation instantanée","Prise en main intuitive","Hyper-connexion en temps réel"],
-    options:[],
   },
   {
     name:"Studio", subtitle:"Distributeur", tag:"Pour les agences de voyages, réseaux et distributeurs", monthly:75, annual:60,
@@ -88,7 +87,6 @@ const plans = [
     desc:"Centraliser la vente, la personnalisation et la relation client autour d'une expérience client optimale",
     cta:"Vendre un voyage sur mesure", pop:true, badge:"Le plus populaire",
     features:["Theya intégrée","Import d'itinéraire via document PDF","Interaction clients (retours likes, commentaires)","Devis immersifs (B2B & B2C)","Génération de vos documents automatisée","Plateforme de paiement","Expérience client optimale","Application mobile"],
-    options:[],
   },
   {
     name:"Synergy", subtitle:"Producteur", tag:"Pour les tour-opérateurs, réceptifs et producteurs", monthly:125, annual:100,
@@ -96,17 +94,10 @@ const plans = [
     desc:"Structurer, coordonner et piloter la production de voyages à grande échelle",
     cta:"Structurer ma production", pop:false,
     features:["Theya intégrée","Plan Studio inclus","Centralisation, collaboration","Industrialisation des process","Pilotage des réservations","Suivi achats réels / marges","Documents contractuels","Connexion API & outils"],
-    options:[],
   },
 ];
 
-const sharedOptions = [
-  "Marque blanche",
-  "Domaine personnalisé",
-  "Personnalisation design",
-  "Import de votre base de données",
-  "Application mobile en nom propre",
-];
+const sharedOptions = ["Marque blanche","Domaine personnalisé","Personnalisation design","Import de votre base de données","Application mobile en nom propre"];
 
 const faq = [
   { q:"Qu'est-ce que Cocohop en quelques mots ?", a:"Cocohop est une plateforme de travail intelligente pour les professionnels du voyage : tour-opérateurs, réceptifs, agences de voyage et travel designers/managers.\nElle permet de concevoir, structurer et produire des voyages sur mesure plus rapidement grâce à une IA intégrée aux workflows métier, tout en automatisant la génération des documents clients." },
@@ -122,34 +113,34 @@ const faq = [
 const Arrow = () => React.createElement('svg',{width:14,height:14,viewBox:"0 0 24 24",fill:"none",style:{flexShrink:0}},
   React.createElement('path',{d:"M5 12h14M13 6l6 6-6 6",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"}));
 
-const Check = ({dark}) => React.createElement('svg',{width:18,height:18,viewBox:"0 0 18 18",fill:"none",style:{flexShrink:0}},
+const Check = ({dark}) => React.createElement('svg',{width:18,height:18,viewBox:"0 0 18 18",fill:"none",style:{flexShrink:0,marginTop:"2px"}},
   React.createElement('circle',{cx:9,cy:9,r:9,fill:dark?"rgba(255,255,255,.15)":"rgba(9,127,120,.15)"}),
   React.createElement('path',{d:"M5.5 9l2.5 2.5 4.5-4.5",stroke:dark?"rgba(255,255,255,.8)":TEAL,strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round"}));
 
 function App() {
-  const [billing,  setBilling]  = React.useState("annual");
-  const [openFaq,  setOpenFaq]  = React.useState(null);
+  const [billing, setBilling] = React.useState("annual");
+  const [openFaq, setOpenFaq] = React.useState(null);
   const firstName = prospectProfile.name.split(' ')[0];
   const h = (tag, props, ...children) => React.createElement(tag, props, ...children);
 
   return h('div',{style:{minHeight:"100vh",background:"#fff",color:TEXT,fontFamily:"'Montserrat Alternates',sans-serif"}},
 
-    /* ── NAV ── */
+    /* NAV */
     h('header',{style:{padding:"16px 48px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:`1px solid ${BORDER}`,position:"sticky",top:0,zIndex:100,background:"rgba(255,255,255,.96)",backdropFilter:"blur(14px)"}},
       h('img',{src:LOGO,alt:"Cocohop",style:{height:"38px",objectFit:"contain"}}),
       h('a',{href:"https://app.cocohop.com/",target:"_blank",rel:"noopener noreferrer",style:{background:ORANGE,color:"#fff",padding:"10px 22px",borderRadius:"100px",fontSize:"13px",fontWeight:600,display:"inline-flex",alignItems:"center",gap:"6px"}},
         "Démarrer gratuitement ", h(Arrow))
     ),
 
-    /* ── HERO ── */
+    /* HERO */
     h('section',{style:{maxWidth:"800px",margin:"0 auto",padding:"72px 32px 56px",textAlign:"center"}},
       h('div',{className:"fu",style:{display:"inline-flex",alignItems:"center",gap:"8px",background:"rgba(221,89,32,.08)",border:"1px solid rgba(221,89,32,.2)",borderRadius:"100px",padding:"5px 16px",marginBottom:"24px"}},
         h('span',{style:{width:6,height:6,borderRadius:"50%",background:ORANGE,display:"inline-block"}}),
         h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE}}, "Suite à votre démo Cocohop")
       ),
-      h('h1',{className:"fu",style:{fontSize:"46px",fontWeight:700,lineHeight:1.1,marginBottom:"20px",color:TEXT}},
+      h('h1',{className:"fu",style:{fontSize:"46px",fontWeight:700,lineHeight:1.1,marginBottom:"20px",color:ORANGE}},
         `Merci ${firstName} pour`, h('br'),
-        h('span',{style:{background:`linear-gradient(135deg,${ORANGE},${TEAL})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",fontStyle:"italic",fontWeight:600}},
+        h('span',{style:{background:`linear-gradient(135deg,${ORANGE},${TEAL})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",fontStyle:"italic"}},
           "ce temps d'échange !")
       ),
       h('p',{className:"fu",style:{fontSize:"16px",color:MUTED,lineHeight:1.75,marginBottom:"40px"}},
@@ -165,22 +156,17 @@ function App() {
       )
     ),
 
-    /* ── BANNER ── */
-    h('section',{style:{maxWidth:"1000px",margin:"0 auto 72px",padding:"0 32px"}},
-      h('div',{style:{borderRadius:"20px",overflow:"hidden",border:`1px solid ${BORDER}`,boxShadow:"0 4px 40px rgba(221,89,32,.07)",position:"relative"}},
-        h('img',{src:BANNER,alt:"Cocohop plateforme",style:{width:"100%",display:"block",background:"#f4f4f4",minHeight:"160px"}}),
-        h('div',{style:{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,0,0,.18)"}}),
-        h('div',{style:{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"8px"}},
-          h('div',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".15em",textTransform:"uppercase",color:"rgba(255,255,255,.75)"}},"Cocohop"),
-          h('div',{style:{fontSize:"28px",fontWeight:700,color:"#fff",textAlign:"center",textShadow:"0 2px 12px rgba(0,0,0,.3)"}}, "Travel Operating Intelligence System")
-        )
+    /* BANNER */
+    h('section',{style:{maxWidth:"1100px",margin:"0 auto 72px",padding:"0 32px"}},
+      h('div',{style:{borderRadius:"20px",overflow:"hidden",border:`1px solid ${BORDER}`,boxShadow:"0 4px 40px rgba(221,89,32,.07)"}},
+        h('img',{src:BANNER,alt:"Cocohop — Travel Operating Intelligence System",style:{width:"100%",display:"block",background:"#f4f4f4"},onError:e=>{e.target.style.display="none"}})
       )
     ),
 
-    /* ── PROFIL PROSPECT ── */
-    h('section',{style:{maxWidth:"920px",margin:"0 auto",padding:"0 32px 72px"}},
+    /* PROFIL PROSPECT */
+    h('section',{style:{maxWidth:"960px",margin:"0 auto",padding:"0 32px 72px"}},
       h('div',{style:{textAlign:"center",marginBottom:"32px"}},
-        h('h2',{style:{fontSize:"34px",fontWeight:700,color:TEXT}}, prospectProfile.name)
+        h('h2',{style:{fontSize:"34px",fontWeight:700,color:ORANGE}}, prospectProfile.name)
       ),
       h('div',{style:{background:`linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))`,border:`1px solid rgba(221,89,32,.15)`,borderRadius:"20px",padding:"28px 32px",marginBottom:"36px",display:"flex",alignItems:"center",gap:"20px",flexWrap:"wrap"}},
         h('div',{style:{width:56,height:56,borderRadius:"14px",background:ORANGE,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"22px",flexShrink:0}}, "🏢"),
@@ -230,11 +216,11 @@ function App() {
       )
     ),
 
-    /* ── RÉCAP DÉMO ── */
-    h('section',{style:{maxWidth:"920px",margin:"0 auto",padding:"0 32px 72px"}},
+    /* RÉCAP DÉMO */
+    h('section',{style:{maxWidth:"960px",margin:"0 auto",padding:"0 32px 72px"}},
       h('div',{style:{textAlign:"center",marginBottom:"32px"}},
         h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:TEAL}}, "Ce qu'on a vu ensemble"),
-        h('h2',{style:{fontSize:"34px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Récap de votre démo")
+        h('h2',{style:{fontSize:"34px",fontWeight:700,marginTop:"8px",color:ORANGE}}, "Récap de votre démo")
       ),
       h('div',{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"14px"}},
         recapPoints.map((p,i) =>
@@ -247,11 +233,11 @@ function App() {
       )
     ),
 
-    /* ── FAQ ── */
+    /* FAQ */
     h('section',{style:{maxWidth:"800px",margin:"0 auto",padding:"0 32px 72px"}},
       h('div',{style:{textAlign:"center",marginBottom:"32px"}},
         h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Questions fréquentes"),
-        h('h2',{style:{fontSize:"34px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Vos questions")
+        h('h2',{style:{fontSize:"34px",fontWeight:700,marginTop:"8px",color:ORANGE}}, "Vos questions")
       ),
       h('div',{style:{display:"flex",flexDirection:"column",gap:"10px"}},
         faq.map((item,i) =>
@@ -262,17 +248,17 @@ function App() {
                 openFaq===i?"×":"+"
               )
             ),
-            openFaq===i && h('div',{style:{padding:"0 24px 20px",fontSize:"13px",color:MUTED,lineHeight:1.8,whiteSpace:"pre-line",borderTop:`1px solid ${BORDER}`,paddingTop:"16px"}},item.a)
+            openFaq===i && h('div',{style:{padding:"0 24px 20px",paddingTop:"16px",fontSize:"13px",color:MUTED,lineHeight:1.8,whiteSpace:"pre-line",borderTop:`1px solid ${BORDER}`}},item.a)
           )
         )
       )
     ),
 
-    /* ── PRICING ── */
-    h('section',{style:{maxWidth:"1080px",margin:"0 auto",padding:"0 32px 72px"}},
+    /* PRICING */
+    h('section',{style:{maxWidth:"1100px",margin:"0 auto",padding:"0 32px 72px"}},
       h('div',{style:{textAlign:"center",marginBottom:"36px"}},
         h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Tarifs"),
-        h('h2',{style:{fontSize:"34px",fontWeight:700,margin:"8px 0 8px",color:TEXT}}, "Choisissez votre plan"),
+        h('h2',{style:{fontSize:"34px",fontWeight:700,margin:"8px 0 8px",color:ORANGE}}, "Choisissez votre plan"),
         h('p',{style:{fontSize:"13px",color:MUTED,marginBottom:"24px"}}, "14 jours d'essai gratuit — sans carte bancaire"),
         h('div',{style:{display:"inline-flex",background:CARD,border:`1px solid ${BORDER}`,borderRadius:"100px",padding:"4px"}},
           [["monthly","Mensuel",null],["annual","Annuel","-20%"]].map(([b,l,badge]) =>
@@ -283,39 +269,38 @@ function App() {
         )
       ),
 
-      /* Cards */
+      /* Plan cards — header sombre, features claires, pas de CTA */
       h('div',{style:{display:"flex",gap:"16px",alignItems:"stretch",marginBottom:"20px"}},
         plans.map(plan =>
-          h('div',{key:plan.name,className:"card",style:{flex:1,borderRadius:"20px",overflow:"hidden",display:"flex",flexDirection:"column",position:"relative",boxShadow:plan.pop?"0 4px 32px rgba(221,89,32,.12)":"0 2px 12px rgba(0,0,0,.06)"}},
+          h('div',{key:plan.name,className:"card",style:{flex:1,borderRadius:"20px",overflow:"hidden",display:"flex",flexDirection:"column",position:"relative",boxShadow:plan.pop?"0 4px 32px rgba(221,89,32,.12)":"0 2px 12px rgba(0,0,0,.06)",border:plan.pop?"1.5px solid rgba(221,89,32,.3)":`1px solid ${BORDER}`}},
             plan.badge && h('div',{style:{position:"absolute",top:"-1px",left:"50%",transform:"translateX(-50%)",background:ORANGE,color:"#fff",padding:"4px 14px",borderRadius:"100px",fontSize:"10px",fontWeight:700,whiteSpace:"nowrap",zIndex:1}},`✦ ${plan.badge}`),
 
             /* Header sombre */
-            h('div',{style:{background:DARK,padding:"28px 24px 24px",borderBottom:`1px solid rgba(255,255,255,.06)`}},
+            h('div',{style:{background:DARK,padding:"32px 24px 28px"}},
               h('div',{style:{textAlign:"center",marginBottom:"20px"}},
                 h('div',{style:{fontSize:"22px",fontWeight:400,color:"#fff",fontStyle:plan.subtitle?"italic":"normal",lineHeight:1.2}},plan.name),
-                plan.subtitle && h('div',{style:{fontSize:"18px",fontWeight:700,color:"#fff",marginTop:"2px"}},plan.subtitle),
-                h('div',{style:{fontSize:"12px",color:"rgba(255,255,255,.5)",marginTop:"8px",lineHeight:1.5}},plan.tag)
+                plan.subtitle && h('div',{style:{fontSize:"18px",fontWeight:700,color:"#fff",marginTop:"4px"}},plan.subtitle),
+                h('div',{style:{fontSize:"12px",color:"rgba(255,255,255,.45)",marginTop:"10px",lineHeight:1.6}},plan.tag)
               ),
-              h('div',{style:{borderTop:"1px solid rgba(255,255,255,.08)",paddingTop:"20px"}},
-                h('div',{style:{display:"flex",alignItems:"baseline",gap:"4px",marginBottom:"6px"}},
-                  h('span',{style:{fontSize:"38px",fontWeight:700,color:ORANGE}},`€${billing==="annual"?plan.annual:plan.monthly}`),
-                  h('span',{style:{fontSize:"12px",color:"rgba(255,255,255,.45)"}},`HT ${plan.unit}`)
+              h('div',{style:{borderTop:"1px solid rgba(255,255,255,.08)",paddingTop:"24px"}},
+                h('div',{style:{display:"flex",alignItems:"baseline",gap:"4px",marginBottom:"8px"}},
+                  h('span',{style:{fontSize:"42px",fontWeight:700,color:ORANGE}},`€${billing==="annual"?plan.annual:plan.monthly}`),
+                  h('span',{style:{fontSize:"13px",color:"rgba(255,255,255,.45)"}},`HT ${plan.unit}`)
                 ),
-                h('div',{style:{fontSize:"11px",color:"rgba(255,255,255,.4)",lineHeight:1.6}},
+                h('div',{style:{fontSize:"11px",color:"rgba(255,255,255,.4)",lineHeight:1.7}},
                   billing==="annual"?`Soit ${plan.annualStr}`:"Facturation mensuelle",
-                  plan.name==="Studio"?h('span',null," · +25€HT/mois par user supp."):"",
-                  plan.name==="Synergy"?h('span',null," · +30€HT/mois par user supp."):""
-                )
-              ),
-              h('div',{style:{marginTop:"16px",fontSize:"12px",color:"rgba(255,255,255,.6)",lineHeight:1.6}},plan.desc),
-              h('a',{href:"https://app.cocohop.com/",target:"_blank",rel:"noopener noreferrer",style:{display:"flex",alignItems:"center",justifyContent:"center",gap:"6px",padding:"13px",borderRadius:"100px",background:plan.pop?ORANGE:"rgba(255,255,255,.12)",color:"#fff",fontSize:"13px",fontWeight:700,marginTop:"20px"}},plan.cta)
+                  plan.name==="Studio"?" · +25€HT/mois par user supp.":"",
+                  plan.name==="Synergy"?" · +30€HT/mois par user supp.":""
+                ),
+                h('div',{style:{marginTop:"16px",fontSize:"13px",color:"rgba(255,255,255,.6)",lineHeight:1.65}},plan.desc)
+              )
             ),
 
             /* Features claires */
-            h('div',{style:{background:"#fff",padding:"24px",flex:1,border:`1px solid ${BORDER}`,borderTop:"none",borderRadius:"0 0 20px 20px"}},
-              h('div',{style:{fontSize:"10px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED,marginBottom:"14px"}},"Inclus"),
-              h('ul',{style:{listStyle:"none",display:"flex",flexDirection:"column",gap:"10px"}},
-                plan.features.map(f => h('li',{key:f,style:{display:"flex",alignItems:"flex-start",gap:"10px",fontSize:"13px",color:TEXT,lineHeight:1.5}},
+            h('div',{style:{background:"#fff",padding:"24px",flex:1}},
+              h('div',{style:{fontSize:"10px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED,marginBottom:"16px"}},"Inclus"),
+              h('ul',{style:{listStyle:"none",display:"flex",flexDirection:"column",gap:"12px"}},
+                plan.features.map(f => h('li',{key:f,style:{display:"flex",alignItems:"flex-start",gap:"10px",fontSize:"13px",color:TEXT,lineHeight:1.55,paddingBottom:"12px",borderBottom:`1px solid ${BORDER}`}},
                   h(Check,{dark:false}), h('span',null,f)
                 ))
               )
@@ -324,8 +309,8 @@ function App() {
         )
       ),
 
-      /* Options bloc pleine largeur */
-      h('div',{style:{background:DARK,borderRadius:"20px",padding:"28px 32px",boxShadow:"0 2px 16px rgba(0,0,0,.1)"}},
+      /* Options pleine largeur */
+      h('div',{style:{background:DARK,borderRadius:"20px",padding:"28px 32px",marginBottom:"16px"}},
         h('div',{style:{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"16px",marginBottom:"20px"}},
           h('div',null,
             h('div',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:TEAL,marginBottom:"4px"}},"Options disponibles"),
@@ -335,57 +320,56 @@ function App() {
         ),
         h('div',{style:{display:"flex",gap:"12px",flexWrap:"wrap"}},
           sharedOptions.map(o =>
-            h('div',{key:o,style:{display:"inline-flex",alignItems:"center",gap:"8px",padding:"10px 16px",borderRadius:"100px",background:"rgba(255,255,255,.07)",border:"1px solid rgba(255,255,255,.12)"}},
+            h('div',{key:o,style:{display:"inline-flex",alignItems:"center",gap:"8px",padding:"10px 18px",borderRadius:"100px",background:"rgba(255,255,255,.07)",border:"1px solid rgba(255,255,255,.12)"}},
               h('span',{style:{color:TEAL,fontWeight:700,fontSize:"14px"}},"+"),
               h('span',{style:{fontSize:"13px",color:"rgba(255,255,255,.8)",fontWeight:500}},o)
             )
           )
         )
       ),
-      h('p',{style:{textAlign:"center",fontSize:"11px",color:MUTED,marginTop:"16px"}},"Prix HT · Sans engagement sur le plan mensuel")
+      h('p',{style:{textAlign:"center",fontSize:"11px",color:MUTED}},"Prix HT · Sans engagement sur le plan mensuel")
     ),
 
-    /* ── CONTACT ── */
-    h('section',{style:{maxWidth:"960px",margin:"0 auto",padding:"0 32px 80px"}},
-      h('div',{style:{background:"linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))",border:"1px solid rgba(221,89,32,.18)",borderRadius:"24px",padding:"48px"}},
+    /* CONTACT */
+    h('section',{style:{maxWidth:"1000px",margin:"0 auto",padding:"0 32px 80px"}},
+      h('div',{style:{background:"linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))",border:"1px solid rgba(221,89,32,.18)",borderRadius:"24px",padding:"48px 52px"}},
 
         /* Atelier */
-        h('div',{style:{background:"rgba(9,127,120,.06)",border:"1px solid rgba(9,127,120,.2)",borderRadius:"16px",padding:"24px 28px",marginBottom:"40px",display:"flex",alignItems:"center",gap:"20px",flexWrap:"wrap"}},
+        h('div',{style:{background:"rgba(9,127,120,.06)",border:"1px solid rgba(9,127,120,.2)",borderRadius:"16px",padding:"24px 28px",marginBottom:"44px",display:"flex",alignItems:"center",gap:"20px",flexWrap:"wrap"}},
           h('div',{style:{fontSize:"36px"}},"🛠️"),
           h('div',{style:{flex:1,minWidth:"200px"}},
             h('div',{style:{fontSize:"14px",fontWeight:700,color:TEXT,marginBottom:"6px"}},"Atelier de construction d'itinéraires"),
             h('div',{style:{fontSize:"13px",color:MUTED,lineHeight:1.7}},"Réservez un atelier pratique avec Alexandre pour construire votre premier itinéraire sur Cocohop, ensemble, en live.")
           ),
-          h('a',{href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"12px 22px",borderRadius:"100px",flexShrink:0,background:TEAL,color:"#fff",fontSize:"13px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"8px",whiteSpace:"nowrap"}},
+          h('a',{href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"12px 24px",borderRadius:"100px",flexShrink:0,background:TEAL,color:"#fff",fontSize:"13px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"8px",whiteSpace:"nowrap"}},
             "📅 Booker l'atelier ", h(Arrow))
         ),
 
         h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE,display:"block",marginBottom:"10px"}},"Votre interlocuteur"),
-        h('h2',{style:{fontSize:"30px",fontWeight:700,marginBottom:"32px",color:TEXT}},"Une question ? Je suis là."),
+        h('h2',{style:{fontSize:"30px",fontWeight:700,marginBottom:"36px",color:ORANGE}},"Une question ? Je suis là."),
 
-        h('div',{style:{display:"flex",alignItems:"center",gap:"28px",flexWrap:"wrap"}},
-          h('div',{style:{width:72,height:72,borderRadius:"18px",flexShrink:0,background:"#fff",border:`1px solid ${BORDER}`,display:"flex",alignItems:"center",justifyContent:"center",padding:"12px",boxShadow:"0 2px 12px rgba(0,0,0,.07)"}},
-            h('img',{src:LOGO,alt:"Cocohop",style:{width:"100%",objectFit:"contain"}})
-          ),
+        /* Ligne unique : nom + boutons alignés */
+        h('div',{style:{display:"flex",alignItems:"center",gap:"24px",flexWrap:"wrap"}},
           h('div',{style:{flex:1,minWidth:"200px"}},
             h('div',{style:{fontSize:"19px",fontWeight:700,marginBottom:"4px",color:TEXT}},"Alexandre Rab"),
-            h('div',{style:{fontSize:"13px",color:MUTED,marginBottom:"16px"}},"Founding Account Executive · Cocohop"),
-            h('div',{style:{display:"flex",gap:"10px",flexWrap:"wrap"}},
-              h('a',{href:"mailto:alexandre@cocohop.com",style:{display:"inline-flex",alignItems:"center",gap:"6px",padding:"9px 16px",borderRadius:"100px",background:"#fff",border:`1px solid ${BORDER}`,color:TEXT,fontSize:"13px",fontWeight:500}},"✉️ alexandre@cocohop.com"),
-              h('a',{href:"https://www.linkedin.com/in/alexandre-rab/",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:"6px",padding:"9px 16px",borderRadius:"100px",background:"rgba(10,102,194,.08)",border:"1px solid rgba(10,102,194,.2)",color:"#0a66c2",fontSize:"13px",fontWeight:500}},
-                h('svg',{width:13,height:13,viewBox:"0 0 24 24",fill:"#0a66c2"},h('path',{d:"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"}),h('circle',{cx:4,cy:4,r:2})),
-                "LinkedIn"
-              )
-            )
+            h('div',{style:{fontSize:"13px",color:MUTED,marginBottom:"16px"}},"Founding Account Executive · Cocohop")
           ),
-          h('a',{href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"14px 24px",borderRadius:"100px",flexShrink:0,background:ORANGE,color:"#fff",fontSize:"14px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"8px",boxShadow:`0 4px 20px rgba(221,89,32,.25)`}},
-            "📅 Prendre un second rendez-vous ", h(Arrow))
+          /* Boutons alignés à droite */
+          h('div',{style:{display:"flex",gap:"12px",flexWrap:"wrap",alignItems:"center"}},
+            h('a',{href:"mailto:alexandre@cocohop.com",style:{display:"inline-flex",alignItems:"center",gap:"6px",padding:"11px 18px",borderRadius:"100px",background:"#fff",border:`1px solid ${BORDER}`,color:TEXT,fontSize:"13px",fontWeight:500}},"✉️ alexandre@cocohop.com"),
+            h('a',{href:"https://www.linkedin.com/in/alexandre-rab/",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:"6px",padding:"11px 18px",borderRadius:"100px",background:"rgba(10,102,194,.08)",border:"1px solid rgba(10,102,194,.2)",color:"#0a66c2",fontSize:"13px",fontWeight:600}},
+              h('svg',{width:14,height:14,viewBox:"0 0 24 24",fill:"#0a66c2"},h('path',{d:"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"}),h('circle',{cx:4,cy:4,r:2})),
+              "LinkedIn"
+            ),
+            h('a',{href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:"8px",padding:"11px 22px",borderRadius:"100px",background:ORANGE,color:"#fff",fontSize:"13px",fontWeight:700,boxShadow:`0 4px 20px rgba(221,89,32,.25)`}},
+              "📅 Prendre un second rendez-vous ", h(Arrow))
+          )
         )
       )
     ),
 
-    /* ── FOOTER ── */
-    h('footer',{style:{borderTop:`1px solid ${BORDER}`,padding:"24px 48px",maxWidth:"1080px",margin:"0 auto",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:"12px"}},
+    /* FOOTER */
+    h('footer',{style:{borderTop:`1px solid ${BORDER}`,padding:"24px 48px",maxWidth:"1100px",margin:"0 auto",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:"12px"}},
       h('img',{src:LOGO,alt:"Cocohop",style:{height:"28px",objectFit:"contain"}}),
       h('p',{style:{fontSize:"12px",color:MUTED}},"© 2026 Cocohop — Made in 🇫🇷 avec 🧡 et 🥖"),
       h('div',{style:{display:"flex",gap:"20px"}},
