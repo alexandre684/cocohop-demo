@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cocohop — Merci Christophe</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Montserrat Alternates','Helvetica Neue',sans-serif;background:#fff;color:#0A0A0F}
+  a{text-decoration:none;color:inherit}
+  button{cursor:pointer;font-family:inherit}
+  .card{transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(221,89,32,.08)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .fu{animation:fadeUp .5s both}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const LOGO   = "https://framerusercontent.com/images/FVWZ410oWWrBo9AQClCJz8zvFQM.svg?width=328&height=116";
+const BANNER = "https://alexandre684.github.io/cocohop-demo/Banniere%20Cocohop2%20(3)%20(1)%20(1).jpg";
+const ORANGE = "#DD5920";
+const TEAL   = "#097F78";
+const DARK   = "#0E1E2B";
+const TEXT   = "#0A0A0F";
+const MUTED  = "rgba(10,10,15,0.45)";
+const CARD   = "rgba(0,0,0,0.03)";
+const BORDER = "rgba(0,0,0,0.08)";
+
+// ============================================================
+// 👇 PROFIL PROSPECT — Christophe Pierard / Travel Feed
+// ============================================================
+const prospectProfile = {
+  name: "Christophe Pierard",
+  company: "Travel Feed",
+  type: "Tour-Opérateur / Producteur",
+  context: "Agence spécialisée dans les voyages à vélo sur mesure en Provence, basée à Pernes-les-Fontaines. Équipe de 2 personnes, clientèle internationale (USA, Canada, Australie). Projet de franchisage à moyen terme.",
+  challenges: [
+    { icon:"🧩", title:"Trop d'outils fragmentés", desc:"Travefi pour les itinéraires, Excel pour les budgets, Flywire pour les paiements, une app GPS tierce — le client jongle entre 4 outils différents." },
+    { icon:"🧾", title:"Comptabilité & TVA à la marge", desc:"Gestion complexe de la TVA sur marge (agence enregistrée Atout France) avec exports comptables manuels vers le cabinet." },
+    { icon:"🚲", title:"Migration de la bibliothèque d'itinéraires", desc:"Des dizaines d'itinéraires vélo construits dans Travefi à importer sans tout recréer de zéro." },
+    { icon:"📊", title:"Pilotage fournisseurs & facturation", desc:"Suivi des marges, paiement prestataires et facturation encore gérés manuellement dans Excel." },
+  ],
+  benefits: [
+    { icon:"📥", title:"Import PDF Travefi → itinéraire en 2 min", desc:"Theya lit vos PDFs Travefi et retranscrit l'itinéraire dans Cocohop automatiquement — votre bibliothèque migre sans ressaisie." },
+    { icon:"🗂️", title:"Templates vélo réutilisables", desc:"Créez vos circuits types une fois, dupliquez à la demande. Changez l'hébergement, générez le devis — en quelques clics." },
+    { icon:"💳", title:"ADYEN intégré — 1% Europe, 2% international", desc:"Remplacez Flywire par une plateforme de paiement native, avec signature électronique et paiement en ligne depuis le devis." },
+    { icon:"📈", title:"CRM comptable en approche", desc:"TVA à la marge, exports comptables, pilotage des réservations — tout ce qu'il manque aujourd'hui, prévu pour juin 2026." },
+  ],
+};
+// ============================================================
+
+const recapPoints = [
+  { icon:"🧠", title:"Le Travel Operating Intelligence System", desc:"Vous avez découvert notre TOIS : un système opérant intelligent où l'itinéraire est l'élément central et pilote toute la chaîne de production." },
+  { icon:"🤖", title:"IA intégrée aux workflows", desc:"Comment Theya s'intègre nativement à vos processus : import PDF, construction d'itinéraires, templates vélo — sans rupture dans votre façon de travailler." },
+  { icon:"⚡", title:"Jusqu'à 80% de temps gagné", desc:"Sur les tâches les plus chronophages — rédaction des carnets, versioning des dossiers, passation entre équipes — pour concentrer vos efforts sur ce qui compte." },
+  { icon:"🎁", title:"14 jours d'essai gratuit", desc:"Vous bénéficiez d'un accès complet au plan Synergy pendant 14 jours, sans carte bancaire requise." },
+];
+
+const plans = [
+  {
+    name:"Theya", subtitle:null, tag:"Pour les pros du voyage", monthly:15, annual:12,
+    annualStr:"144€ HT sur 12 mois", unit:"/ mois / utilisateur",
+    desc:"Converser avec une IA développée pour les pros du voyage",
+    pop:false,
+    features:["Utilisation instantanée","Prise en main intuitive","Hyper-connexion en temps réel"],
+  },
+  {
+    name:"Studio", subtitle:"Distributeur", tag:"Pour les agences de voyages, réseaux et distributeurs", monthly:75, annual:60,
+    annualStr:"720€ HT sur 12 mois", unit:"/ mois",
+    desc:"Centraliser la vente, la personnalisation et la relation client autour d'une expérience client optimale",
+    pop:false,
+    features:["Theya intégrée","Import d'itinéraire via document PDF","Devis immersifs (B2B & B2C)","Génération de vos documents automatisée","Plateforme de paiement","Application mobile"],
+  },
+  {
+    name:"Synergy", subtitle:"Producteur", tag:"Pour les tour-opérateurs, réceptifs et producteurs", monthly:125, annual:100,
+    annualStr:"1 200€ HT sur 12 mois", unit:"/ mois",
+    desc:"Structurer, coordonner et piloter la production de voyages à grande échelle",
+    pop:true, badge:"Recommandé pour vous",
+    features:["Theya intégrée","Plan Studio inclus","Centralisation, collaboration","Industrialisation des process","Pilotage des réservations","Suivi achats réels / marges","Documents contractuels","Connexion API & outils"],
+  },
+];
+
+const sharedOptions = ["Marque blanche","Domaine personnalisé","Personnalisation design","Import de votre base de données","Application mobile en nom propre"];
+
+const faq = [
+  { q:"Qu'est-ce que Cocohop en quelques mots ?", a:"Cocohop est une plateforme de travail intelligente pour les professionnels du voyage : tour-opérateurs, réceptifs, agences de voyage et travel designers.\nElle permet de concevoir, structurer et produire des voyages sur mesure plus rapidement grâce à une IA intégrée aux workflows métier, tout en automatisant la génération des documents clients." },
+  { q:"À quels professionnels du tourisme s'adresse Cocohop ?", a:"Cocohop s'adresse à tous les acteurs du voyage :\n• agences de voyages et distributeurs,\n• tour-opérateurs, DMC, groupistes et producteurs,\n• indépendants du tourisme organisant des expériences thématiques,\n• acteurs institutionnels : offices de tourisme, comités de région, etc.\n\nChaque métier bénéficie d'un usage dédié, basé sur un socle commun." },
+  { q:"En quoi l'IA de Cocohop est-elle différente des autres outils ?", a:"Contrairement aux outils d'IA génériques, l'IA de Cocohop est intégrée de manière transverse à la plateforme. Elle structure les contenus, accompagne la production et génère automatiquement les documents clients, en s'adaptant aux usages réels de chaque métier du tourisme." },
+  { q:"Quels types de documents peut-on générer avec Cocohop ?", a:"• itinéraires détaillés,\n• offres, devis et propositions de voyage au formats numérique ou PDF,\n• carnets de voyage personnalisés au format PDF pour impression,\n• documents de voyage dans l'application mobile Cocohop Go.\n\nLes documents sont cohérents, structurés et prêts à être partagés, sans mise en forme manuelle." },
+  { q:"Combien de temps peut-on vraiment gagner avec Cocohop ?", a:"Les utilisateurs constatent jusqu'à 80% de gain de temps sur les tâches les plus chronophages.\nCe temps libéré peut être réinvesti dans le conseil, la relation client et la valeur ajoutée humaine." },
+  { q:"Cocohop remplace-t-il le travail humain ?", a:"Non. Cocohop est conçu pour augmenter le travail humain, pas le remplacer.\nL'IA prend en charge les tâches répétitives et chronophages afin de laisser plus de place à l'expertise, à la créativité et à la relation client." },
+  { q:"Faut-il changer ses habitudes pour utiliser Cocohop ?", a:"Non. Cocohop s'intègre facilement dans les pratiques existantes.\nLa plateforme a été conçue avec des professionnels du tourisme pour s'adapter aux workflows réels, sans imposer de processus rigide." },
+  { q:"Cocohop est-il adapté à une activité qui souhaite scaler ?", a:"Oui. Cocohop repose sur un socle structuré, capable d'accompagner la croissance sans standardiser les voyages.\nLa plateforme permet de produire plus, mieux et plus vite, tout en conservant une approche sur mesure." },
+];
+
+const Arrow = () => React.createElement('svg',{width:14,height:14,viewBox:"0 0 24 24",fill:"none",style:{flexShrink:0}},
+  React.createElement('path',{d:"M5 12h14M13 6l6 6-6 6",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"}));
+
+const Check = () => React.createElement('svg',{width:18,height:18,viewBox:"0 0 18 18",fill:"none",style:{flexShrink:0,marginTop:"2px"}},
+  React.createElement('circle',{cx:9,cy:9,r:9,fill:TEAL,fillOpacity:0.15}),
+  React.createElement('path',{d:"M5.5 9l2.5 2.5 4.5-4.5",stroke:TEAL,strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round"}));
+
+function App() {
+  const [billing, setBilling] = React.useState("annual");
+  const [openFaq, setOpenFaq]  = React.useState(null);
+  const firstName = prospectProfile.name.split(' ')[0];
+  const h = (tag, props, ...children) => React.createElement(tag, props, ...children);
+
+  return h('div',{style:{minHeight:"100vh",background:"#fff",color:TEXT,fontFamily:"'Montserrat Alternates',sans-serif"}},
+
+    /* NAV */
+    h('header',{style:{padding:"16px 48px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:`1px solid ${BORDER}`,position:"sticky",top:0,zIndex:100,background:"rgba(255,255,255,.96)",backdropFilter:"blur(14px)"}},
+      h('img',{src:LOGO,alt:"Cocohop",style:{height:"38px",objectFit:"contain"}}),
+      h('a',{href:"https://app.cocohop.com/",target:"_blank",rel:"noopener noreferrer",style:{background:ORANGE,color:"#fff",padding:"10px 22px",borderRadius:"100px",fontSize:"13px",fontWeight:600,display:"inline-flex",alignItems:"center",gap:"6px"}},
+        "Démarrer gratuitement ", h(Arrow))
+    ),
+
+    /* HERO */
+    h('section',{style:{maxWidth:"800px",margin:"0 auto",padding:"72px 32px 56px",textAlign:"center"}},
+      h('div',{className:"fu",style:{display:"inline-flex",alignItems:"center",gap:"8px",background:"rgba(221,89,32,.08)",border:"1px solid rgba(221,89,32,.2)",borderRadius:"100px",padding:"5px 16px",marginBottom:"24px"}},
+        h('span',{style:{width:6,height:6,borderRadius:"50%",background:ORANGE,display:"inline-block"}}),
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE}}, "Suite à votre démo Cocohop")
+      ),
+      h('h1',{className:"fu",style:{fontSize:"46px",fontWeight:700,lineHeight:1.1,marginBottom:"20px",color:ORANGE}},
+        `Merci ${firstName} pour`, h('br'),
+        h('span',{style:{background:`linear-gradient(135deg,${ORANGE},${TEAL})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",fontStyle:"italic",fontWeight:600}},
+          "ce temps d'échange !")
+      ),
+      h('p',{className:"fu",style:{fontSize:"16px",color:MUTED,lineHeight:1.75,marginBottom:"40px"}},
+        "Retrouvez ici tous les liens, tarifs et informations discutés lors de notre échange."
+      ),
+      h('div',{className:"fu",style:{display:"flex",justifyContent:"center",gap:"40px",flexWrap:"wrap",padding:"28px 40px",background:CARD,border:`1px solid ${BORDER}`,borderRadius:"20px"}},
+        [["80%","sur les tâches les plus chronophages",ORANGE],["30%","de conversion en plus",TEAL],["50M+","ressources dispo",ORANGE]].map(([v,l,c]) =>
+          h('div',{key:l,style:{textAlign:"center"}},
+            h('div',{style:{fontSize:"28px",fontWeight:700,color:c}},v),
+            h('div',{style:{fontSize:"12px",color:MUTED,marginTop:"4px"}},l)
+          )
+        )
+      )
+    ),
+
+    /* BANNER */
+    h('section',{style:{maxWidth:"1100px",margin:"0 auto 72px",padding:"0 32px"}},
+      h('div',{style:{borderRadius:"20px",overflow:"hidden",border:`1px solid ${BORDER}`,boxShadow:"0 4px 40px rgba(221,89,32,.07)"}},
+        h('img',{src:BANNER,alt:"Cocohop",style:{width:"100%",display:"block",background:"#f4f4f4"},onError:e=>{e.target.style.display="none"}})
+      )
+    ),
+
+    /* PROFIL PROSPECT */
+    h('section',{style:{maxWidth:"960px",margin:"0 auto",padding:"0 32px 72px"}},
+      h('div',{style:{textAlign:"center",marginBottom:"32px"}},
+        h('h2',{style:{fontSize:"34px",fontWeight:700,color:ORANGE}}, prospectProfile.name)
+      ),
+      h('div',{style:{background:`linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))`,border:`1px solid rgba(221,89,32,.15)`,borderRadius:"20px",padding:"28px 32px",marginBottom:"36px",display:"flex",alignItems:"center",gap:"20px",flexWrap:"wrap"}},
+        h('div',{style:{width:56,height:56,borderRadius:"14px",background:ORANGE,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"22px",flexShrink:0}}, "🚲"),
+        h('div',{style:{flex:1}},
+          h('div',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE,marginBottom:"4px"}}, prospectProfile.type),
+          h('div',{style:{fontSize:"18px",fontWeight:700,color:TEXT,marginBottom:"4px"}}, prospectProfile.company),
+          h('div',{style:{fontSize:"13px",color:MUTED,lineHeight:1.7}}, prospectProfile.context)
+        )
+      ),
+      h('div',{style:{marginBottom:"36px"}},
+        h('div',{style:{display:"flex",alignItems:"center",gap:"10px",marginBottom:"16px"}},
+          h('div',{style:{padding:"7px 16px",background:ORANGE,borderRadius:"100px"}},
+            h('span',{style:{fontSize:"12px",fontWeight:700,color:"#fff"}}, "🎯 Vos défis identifiés")
+          ),
+          h('div',{style:{height:"1px",flex:1,background:`linear-gradient(to right,rgba(221,89,32,.3),transparent)`}})
+        ),
+        h('div',{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"12px"}},
+          prospectProfile.challenges.map((c,i) =>
+            h('div',{key:i,style:{display:"flex",alignItems:"flex-start",gap:"14px",padding:"20px",borderRadius:"14px",background:"rgba(255,70,70,.03)",border:"1px solid rgba(255,70,70,.12)"}},
+              h('span',{style:{fontSize:"22px",flexShrink:0}},c.icon),
+              h('div',null,
+                h('div',{style:{fontSize:"14px",fontWeight:600,color:TEXT,marginBottom:"6px"}},c.title),
+                h('div',{style:{fontSize:"13px",color:MUTED,lineHeight:1.6}},c.desc)
+              )
+            )
+          )
+        )
+      ),
+      h('div',null,
+        h('div',{style:{display:"flex",alignItems:"center",gap:"10px",marginBottom:"16px"}},
+          h('div',{style:{padding:"7px 16px",background:TEAL,borderRadius:"100px"}},
+            h('span',{style:{fontSize:"12px",fontWeight:700,color:"#fff"}}, "✨ Ce que Cocohop apporte concrètement")
+          ),
+          h('div',{style:{height:"1px",flex:1,background:`linear-gradient(to right,rgba(9,127,120,.3),transparent)`}})
+        ),
+        h('div',{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"12px"}},
+          prospectProfile.benefits.map((b,i) =>
+            h('div',{key:i,style:{display:"flex",alignItems:"flex-start",gap:"14px",padding:"20px",borderRadius:"14px",background:"rgba(9,127,120,.04)",border:"1px solid rgba(9,127,120,.15)"}},
+              h('span',{style:{fontSize:"22px",flexShrink:0}},b.icon),
+              h('div',null,
+                h('div',{style:{fontSize:"14px",fontWeight:600,color:TEXT,marginBottom:"6px"}},b.title),
+                h('div',{style:{fontSize:"13px",color:MUTED,lineHeight:1.6}},b.desc)
+              )
+            )
+          )
+        )
+      )
+    ),
+
+    /* RÉCAP DÉMO */
+    h('section',{style:{maxWidth:"960px",margin:"0 auto",padding:"0 32px 72px"}},
+      h('div',{style:{textAlign:"center",marginBottom:"32px"}},
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:TEAL}}, "Ce qu'on a vu ensemble"),
+        h('h2',{style:{fontSize:"34px",fontWeight:700,marginTop:"8px",color:ORANGE}}, "Récap de votre démo")
+      ),
+      h('div',{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"14px"}},
+        recapPoints.map((p,i) =>
+          h('div',{key:i,className:"card",style:{background:"#fff",border:`1px solid ${BORDER}`,borderRadius:"16px",padding:"28px",boxShadow:"0 2px 12px rgba(0,0,0,.05)"}},
+            h('div',{style:{fontSize:"28px",marginBottom:"14px"}},p.icon),
+            h('h4',{style:{fontSize:"15px",fontWeight:600,marginBottom:"8px",color:TEXT}},p.title),
+            h('p',{style:{fontSize:"13px",color:MUTED,lineHeight:1.7}},p.desc)
+          )
+        )
+      )
+    ),
+
+    /* FAQ */
+    h('section',{style:{maxWidth:"800px",margin:"0 auto",padding:"0 32px 72px"}},
+      h('div',{style:{textAlign:"center",marginBottom:"32px"}},
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Questions fréquentes"),
+        h('h2',{style:{fontSize:"34px",fontWeight:700,marginTop:"8px",color:ORANGE}}, "Vos questions")
+      ),
+      h('div',{style:{display:"flex",flexDirection:"column",gap:"10px"}},
+        faq.map((item,i) =>
+          h('div',{key:i,style:{background:"#fff",border:`1px solid ${openFaq===i?"rgba(221,89,32,.3)":BORDER}`,borderRadius:"14px",overflow:"hidden",transition:"all .2s"}},
+            h('button',{onClick:()=>setOpenFaq(openFaq===i?null:i),style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"20px 24px",background:"none",border:"none",textAlign:"left",gap:"12px"}},
+              h('span',{style:{fontSize:"14px",fontWeight:600,color:TEXT,lineHeight:1.4}},item.q),
+              h('span',{style:{width:26,height:26,borderRadius:"50%",background:openFaq===i?ORANGE:CARD,border:`1px solid ${openFaq===i?ORANGE:BORDER}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,color:openFaq===i?"#fff":MUTED,fontSize:"16px",fontWeight:600,transition:"all .2s"}},
+                openFaq===i?"×":"+"
+              )
+            ),
+            openFaq===i && h('div',{style:{padding:"0 24px 20px",paddingTop:"16px",fontSize:"13px",color:MUTED,lineHeight:1.8,whiteSpace:"pre-line",borderTop:`1px solid ${BORDER}`}},item.a)
+          )
+        )
+      )
+    ),
+
+    /* PRICING */
+    h('section',{style:{maxWidth:"1100px",margin:"0 auto",padding:"0 32px 72px"}},
+      h('div',{style:{textAlign:"center",marginBottom:"36px"}},
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Tarifs"),
+        h('h2',{style:{fontSize:"34px",fontWeight:700,margin:"8px 0 8px",color:ORANGE}}, "Choisissez votre plan"),
+        h('p',{style:{fontSize:"13px",color:MUTED,marginBottom:"24px"}}, "14 jours d'essai gratuit — sans carte bancaire"),
+        h('div',{style:{display:"inline-flex",background:CARD,border:`1px solid ${BORDER}`,borderRadius:"100px",padding:"4px"}},
+          [["monthly","Mensuel",null],["annual","Annuel","-20%"]].map(([b,l,badge]) =>
+            h('button',{key:b,onClick:()=>setBilling(b),style:{padding:"9px 22px",borderRadius:"100px",fontSize:"13px",fontWeight:500,background:billing===b?TEXT:"transparent",color:billing===b?"#fff":MUTED,display:"inline-flex",alignItems:"center",gap:"6px",border:"none",transition:"all .15s"}},
+              l, badge && h('span',{style:{fontSize:"10px",background:TEAL,color:"#fff",padding:"2px 7px",borderRadius:"100px",fontWeight:700}},badge)
+            )
+          )
+        )
+      ),
+      h('div',{style:{display:"flex",gap:"16px",alignItems:"flex-start",marginBottom:"20px"}},
+        plans.map(plan =>
+          h('div',{key:plan.name,className:"card",style:{flex:1,borderRadius:"20px",overflow:"hidden",display:"flex",flexDirection:"column",position:"relative",boxShadow:plan.pop?"0 4px 32px rgba(221,89,32,.12)":"0 2px 12px rgba(0,0,0,.06)",border:plan.pop?`1.5px solid rgba(221,89,32,.3)`:`1px solid ${BORDER}`}},
+            plan.badge && h('div',{style:{position:"absolute",top:"-1px",left:"50%",transform:"translateX(-50%)",background:ORANGE,color:"#fff",padding:"4px 14px",borderRadius:"100px",fontSize:"10px",fontWeight:700,whiteSpace:"nowrap",zIndex:1}},`✦ ${plan.badge}`),
+            h('div',{style:{background:DARK,padding:"32px 24px 28px",minHeight:"280px",display:"flex",flexDirection:"column",justifyContent:"flex-start"}},
+              h('div',{style:{textAlign:"center",marginBottom:"20px"}},
+                h('div',{style:{fontSize:"22px",fontWeight:400,color:"#fff",fontStyle:plan.subtitle?"italic":"normal",lineHeight:1.2}},plan.name),
+                plan.subtitle && h('div',{style:{fontSize:"18px",fontWeight:700,color:"#fff",marginTop:"4px"}},plan.subtitle),
+                h('div',{style:{fontSize:"12px",color:"rgba(255,255,255,.45)",marginTop:"10px",lineHeight:1.6}},plan.tag)
+              ),
+              h('div',{style:{borderTop:"1px solid rgba(255,255,255,.08)",paddingTop:"24px"}},
+                h('div',{style:{display:"flex",alignItems:"baseline",gap:"4px",marginBottom:"8px"}},
+                  h('span',{style:{fontSize:"42px",fontWeight:700,color:ORANGE}},`€${billing==="annual"?plan.annual:plan.monthly}`),
+                  h('span',{style:{fontSize:"13px",color:"rgba(255,255,255,.45)"}},`HT ${plan.unit}`)
+                ),
+                h('div',{style:{fontSize:"11px",color:"rgba(255,255,255,.4)",lineHeight:1.7}},
+                  billing==="annual"?`Soit ${plan.annualStr}`:"Facturation mensuelle",
+                  plan.name==="Studio"?" · +25€HT/mois par user supp.":"",
+                  plan.name==="Synergy"?" · +30€HT/mois par user supp.":""
+                ),
+                h('div',{style:{marginTop:"16px",fontSize:"13px",color:"rgba(255,255,255,.6)",lineHeight:1.65}},plan.desc)
+              )
+            ),
+            h('div',{style:{background:"#fff",padding:"24px",flex:1}},
+              h('div',{style:{fontSize:"10px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED,marginBottom:"16px"}},"Inclus"),
+              h('ul',{style:{listStyle:"none",display:"flex",flexDirection:"column",gap:"12px"}},
+                plan.features.map(f => h('li',{key:f,style:{display:"flex",alignItems:"flex-start",gap:"10px",fontSize:"13px",color:TEXT,lineHeight:1.55,paddingBottom:"12px",borderBottom:`1px solid ${BORDER}`}},
+                  h(Check), h('span',null,f)
+                ))
+              )
+            )
+          )
+        )
+      ),
+      h('div',{style:{background:DARK,borderRadius:"20px",padding:"28px 32px",marginBottom:"16px"}},
+        h('div',{style:{display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"16px",marginBottom:"20px"}},
+          h('div',null,
+            h('div',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:TEAL,marginBottom:"4px"}},"Options disponibles"),
+            h('div',{style:{fontSize:"16px",fontWeight:700,color:"#fff"}}, "Allez plus loin avec des options sur mesure")
+          ),
+          h('div',{style:{fontSize:"12px",color:"rgba(255,255,255,.4)"}}, "Disponibles sur Studio & Synergy")
+        ),
+        h('div',{style:{display:"flex",gap:"12px",flexWrap:"wrap"}},
+          sharedOptions.map(o =>
+            h('div',{key:o,style:{display:"inline-flex",alignItems:"center",gap:"8px",padding:"10px 18px",borderRadius:"100px",background:"rgba(255,255,255,.07)",border:"1px solid rgba(255,255,255,.12)"}},
+              h('span',{style:{color:TEAL,fontWeight:700,fontSize:"14px"}},"+"),
+              h('span',{style:{fontSize:"13px",color:"rgba(255,255,255,.8)",fontWeight:500}},o)
+            )
+          )
+        )
+      ),
+      h('p',{style:{textAlign:"center",fontSize:"11px",color:MUTED}},"Prix HT · Sans engagement sur le plan mensuel")
+    ),
+
+    /* CONTACT */
+    h('section',{style:{maxWidth:"1000px",margin:"0 auto",padding:"0 32px 80px"}},
+      h('div',{style:{background:"linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))",border:"1px solid rgba(221,89,32,.18)",borderRadius:"24px",padding:"48px 52px"}},
+        h('div',{style:{background:"rgba(9,127,120,.06)",border:"1px solid rgba(9,127,120,.2)",borderRadius:"16px",padding:"24px 28px",marginBottom:"44px",display:"flex",alignItems:"center",gap:"20px",flexWrap:"wrap"}},
+          h('div',{style:{fontSize:"36px"}},"🛠️"),
+          h('div',{style:{flex:1,minWidth:"200px"}},
+            h('div',{style:{fontSize:"14px",fontWeight:700,color:TEXT,marginBottom:"6px"}},"Atelier de construction d'itinéraires"),
+            h('div',{style:{fontSize:"13px",color:MUTED,lineHeight:1.7}},"Réservez un atelier pratique avec Alexandre pour construire votre premier itinéraire vélo sur Cocohop, ensemble, en live.")
+          ),
+          h('a',{href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"12px 24px",borderRadius:"100px",flexShrink:0,background:TEAL,color:"#fff",fontSize:"13px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"8px",whiteSpace:"nowrap"}},
+            "📅 Booker l'atelier ", h(Arrow))
+        ),
+        h('span',{style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE,display:"block",marginBottom:"10px"}},"Votre interlocuteur"),
+        h('h2',{style:{fontSize:"30px",fontWeight:700,marginBottom:"36px",color:ORANGE}},"Une question ? Je suis là."),
+        h('div',{style:{display:"flex",alignItems:"center",gap:"24px",flexWrap:"wrap"}},
+          h('div',{style:{flex:1,minWidth:"200px"}},
+            h('div',{style:{fontSize:"19px",fontWeight:700,marginBottom:"4px",color:TEXT}},"Alexandre Rab"),
+            h('div',{style:{fontSize:"13px",color:MUTED,marginBottom:"16px"}},"Founding Account Executive · Cocohop")
+          ),
+          h('div',{style:{display:"flex",gap:"12px",flexWrap:"wrap",alignItems:"center"}},
+            h('a',{href:"mailto:alexandre@cocohop.com",style:{display:"inline-flex",alignItems:"center",gap:"6px",padding:"11px 18px",borderRadius:"100px",background:"#fff",border:`1px solid ${BORDER}`,color:TEXT,fontSize:"13px",fontWeight:500}},"✉️ alexandre@cocohop.com"),
+            h('a',{href:"https://www.linkedin.com/in/alexandre-rab/",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:"6px",padding:"11px 18px",borderRadius:"100px",background:"rgba(10,102,194,.08)",border:"1px solid rgba(10,102,194,.2)",color:"#0a66c2",fontSize:"13px",fontWeight:600}},
+              h('svg',{width:14,height:14,viewBox:"0 0 24 24",fill:"#0a66c2"},h('path',{d:"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"}),h('circle',{cx:4,cy:4,r:2})),
+              "LinkedIn"
+            ),
+            h('a',{href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:"8px",padding:"11px 22px",borderRadius:"100px",background:ORANGE,color:"#fff",fontSize:"13px",fontWeight:700,boxShadow:`0 4px 20px rgba(221,89,32,.25)`}},
+              "📅 Prendre un second rendez-vous ", h(Arrow))
+          )
+        )
+      )
+    ),
+
+    /* FOOTER */
+    h('footer',{style:{borderTop:`1px solid ${BORDER}`,padding:"24px 48px",maxWidth:"1100px",margin:"0 auto",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:"12px"}},
+      h('img',{src:LOGO,alt:"Cocohop",style:{height:"28px",objectFit:"contain"}}),
+      h('p',{style:{fontSize:"12px",color:MUTED}},"© 2026 Cocohop — Made in 🇫🇷 avec 🧡 et 🥖"),
+      h('div',{style:{display:"flex",gap:"20px"}},
+        [["Site web","https://cocohop.com"],["CGU","https://cocohop.com/terms"],["Contact","https://cocohop.com/contact"]].map(([l,url]) =>
+          h('a',{key:l,href:url,style:{color:MUTED,fontSize:"12px"}},l)
+        )
+      )
+    )
+  );
+}
+
+ReactDOM.render(React.createElement(App), document.getElementById('root'));
+</script>
+</body>
+</html>
