@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cocohop — Merci pour votre démo</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Montserrat Alternates','Helvetica Neue',sans-serif;background:#fff;color:#0A0A0F}
+  a{text-decoration:none;color:inherit}
+  button{cursor:pointer;font-family:inherit}
+  .card{transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(221,89,32,.08)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .fu{animation:fadeUp .5s both}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const LOGO = "https://framerusercontent.com/images/FVWZ410oWWrBo9AQClCJz8zvFQM.svg?width=328&height=116";
+const BANNER = "https://framerusercontent.com/images/J33Eu6o0w5x0FCj8MyK1MqiONDQ.svg?width=1140&height=641";
+const ORANGE = "#DD5920";
+const TEAL = "#097F78";
+const TEXT = "#0A0A0F";
+const MUTED = "rgba(10,10,15,0.45)";
+const CARD = "rgba(0,0,0,0.03)";
+const BORDER = "rgba(0,0,0,0.08)";
+
+// ============================================================
+// 👇 MODIFIER ICI POUR CHAQUE NOUVEAU PROSPECT
+// ============================================================
+const prospectProfile = {
+  name: "Chloé Lizée",
+  company: "Maison Manaventura",
+  type: "Agence de voyage / Distributeur",
+  context: "Lancement d'une agence concept store à La Tranche-sur-Mer, avec présence physique saisonnière et vente en ligne. Partenariat avec Jessica d'Aventura Tahiti pour la production locale.",
+  challenges: [
+    { icon:"🧾", title:"Facturation & comptabilité", desc:"Besoin d'une solution intégrée pour la facturation électronique et les exports comptables (Pennylane, Sage) dès le lancement." },
+    { icon:"📥", title:"Import de devis réceptifs", desc:"Chloé travaille avec des réceptifs partenaires et a besoin d'importer facilement leurs devis PDF pour les transformer en propositions clients." },
+    { icon:"🎨", title:"Livrables à valeur perçue élevée", desc:"En tant que nouvelle agence, l'image des documents envoyés aux clients est clé pour se différencier dès le départ." },
+    { icon:"💳", title:"Paiement en ligne fluide", desc:"Le circuit de vente digital nécessite un parcours client simple : devis → signature → paiement en ligne, sans friction." },
+  ],
+  benefits: [
+    { icon:"⚡", title:"Import PDF → devis immersif en quelques clics", desc:"Theya lit vos documents réceptifs et génère automatiquement un itinéraire structuré et un devis web immersif, prêt à envoyer." },
+    { icon:"✍️", title:"Signature + paiement intégrés", desc:"ADYEN + Usign : vos clients signent et paient directement depuis le devis, sans outil tiers. 1% Europe, 2% international." },
+    { icon:"📚", title:"Carnets, vouchers & appli mobile", desc:"Une fois le devis validé, Cocohop génère automatiquement tous vos documents voyage — carnet, livret, vouchers — et les met à disposition sur l'app mobile." },
+    { icon:"🔗", title:"Connecteurs comptables en approche", desc:"Facturation électronique (mi-avril) et exports Pennylane/Sage (avant l'été) — Cocohop s'intégrera dans votre workflow comptable dès le lancement." },
+  ],
+};
+// ============================================================
+
+const plans = [
+  {
+    name:"Theya", subtitle:null, tag:"Pour les pros du voyage", monthly:15, annual:12,
+    annualStr:"144€ HT sur 12 mois", unit:"/ mois / utilisateur",
+    desc:"Converser avec une IA développée pour les pros du voyage",
+    cta:"Converser avec Theya", pop:false,
+    features:["Pour les pros du tourisme","IA Conversationnelle","Assistance hyper-connectée (actualité, météo, évènements, formalités)"],
+    options:[],
+  },
+  {
+    name:"Studio", subtitle:"Distributeur", tag:"Pour les agences de voyages, réseaux et distributeurs", monthly:75, annual:60,
+    annualStr:"720€ HT sur 12 mois", unit:"/ mois",
+    desc:"Centraliser la vente, la personnalisation et la relation client autour d'une expérience client optimale",
+    cta:"Vendre un voyage sur mesure", pop:true, badge:"Le plus populaire",
+    features:["Import d'itinéraire via document PDF","Interaction clients (retours likes, commentaires)","Devis immersifs (B2B & B2C)","Génération de vos documents automatisée","Plateforme de paiement","Expérience client optimale","Application mobile"],
+    options:[],
+  },
+  {
+    name:"Synergy", subtitle:"Producteur", tag:"Pour les tour-opérateurs, réceptifs et producteurs", monthly:125, annual:100,
+    annualStr:"1 200€ HT sur 12 mois", unit:"/ mois",
+    desc:"Structurer, coordonner et piloter la production de voyages à grande échelle",
+    cta:"Structurer ma production", pop:false,
+    features:["Plan Studio","Centralisation, collaboration","Industrialisation des process","Pilotage des réservations","Suivi achats réels / marges","Documents contractuels","Connexion API & outils"],
+    options:["Marque blanche","Domaine personnalisé","Personnalisation design","Import de votre base de données","Application mobile en nom propre"],
+  },
+];
+
+const faq = [
+  { q:"Qu'est-ce que Cocohop en quelques mots ?", a:"Cocohop est une plateforme de travail intelligente pour les professionnels du voyage : tour-opérateurs, réceptifs, agences de voyage et travel designers/managers.\nElle permet de concevoir, structurer et produire des voyages sur mesure plus rapidement grâce à une IA intégrée aux workflows métier, tout en automatisant la génération des documents clients." },
+  { q:"À quels professionnels du tourisme s'adresse Cocohop ?", a:"Cocohop s'adresse à tous les acteurs du voyage :\n• agences de voyages et distributeurs,\n• tour-opérateurs, DMC, groupistes et producteurs,\n• indépendants du tourisme organisant des expériences thématiques, des MICE,\n• acteurs institutionnels : offices de tourisme, comités de région, etc.\n\nChaque métier bénéficie d'un usage dédié, basé sur un socle commun." },
+  { q:"En quoi l'IA de Cocohop est-elle différente des autres outils ?", a:"Contrairement aux outils d'IA génériques, l'IA de Cocohop est intégrée de manière transverse à la plateforme. Elle structure les contenus, accompagne la production et génère automatiquement les documents clients, en s'adaptant aux usages réels de chaque métier du tourisme." },
+  { q:"Quels types de documents peut-on générer avec Cocohop ?", a:"• itinéraires détaillés,\n• offres, devis et propositions de voyage au formats numérique ou PDF,\n• carnets de voyage personnalisés au format PDF pour impression,\n• documents de voyage dans l'application mobile Cocohop Go.\n\nLes documents sont cohérents, structurés et prêts à être partagés, sans mise en forme manuelle." },
+  { q:"Combien de temps peut-on vraiment gagner avec Cocohop ?", a:"Les utilisateurs constatent jusqu'à 80% de gain de temps sur les tâches les plus chronophages.\nCe temps libéré peut être réinvesti dans le conseil, la relation client et la valeur ajoutée humaine." },
+  { q:"Cocohop remplace-t-il le travail humain ?", a:"Non. Cocohop est conçu pour augmenter le travail humain, pas le remplacer.\nL'IA prend en charge les tâches répétitives et chronophages afin de laisser plus de place à l'expertise, à la créativité et à la relation client." },
+  { q:"Faut-il changer ses habitudes pour utiliser Cocohop ?", a:"Non. Cocohop s'intègre facilement dans les pratiques existantes.\nLa plateforme a été conçue avec des professionnels du tourisme pour s'adapter aux workflows réels, sans imposer de processus rigide." },
+  { q:"Cocohop est-il adapté à une activité qui souhaite scaler ?", a:"Oui. Cocohop repose sur un socle structuré, capable d'accompagner la croissance sans standardiser les voyages.\nLa plateforme permet de produire plus, mieux et plus vite, tout en conservant une approche sur mesure." },
+];
+
+const Arrow = () => React.createElement('svg',{width:14,height:14,viewBox:"0 0 24 24",fill:"none",style:{flexShrink:0}},
+  React.createElement('path',{d:"M5 12h14M13 6l6 6-6 6",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"}));
+
+const Check = () => React.createElement('svg',{width:16,height:16,viewBox:"0 0 16 16",fill:"none",style:{flexShrink:0}},
+  React.createElement('circle',{cx:8,cy:8,r:8,fill:TEAL,fillOpacity:0.15}),
+  React.createElement('path',{d:"M5 8l2 2 4-4",stroke:TEAL,strokeWidth:1.5,strokeLinecap:"round",strokeLinejoin:"round"}));
+
+function App() {
+  const [billing, setBilling] = React.useState("annual");
+  const [openFaq, setOpenFaq] = React.useState(null);
+  const name = prospectProfile.name.split(' ')[0];
+
+  return React.createElement('div', {style:{minHeight:"100vh",background:"#fff",color:TEXT,fontFamily:"'Montserrat Alternates','Helvetica Neue',sans-serif"}},
+
+    // NAV
+    React.createElement('header', {style:{padding:"16px 40px",display:"flex",alignItems:"center",justifyContent:"space-between",borderBottom:`1px solid ${BORDER}`,position:"sticky",top:0,zIndex:100,background:"rgba(255,255,255,.96)",backdropFilter:"blur(14px)"}},
+      React.createElement('img', {src:LOGO, alt:"Cocohop", style:{height:"28px",objectFit:"contain"}}),
+      React.createElement('a', {href:"https://app.cocohop.com/",target:"_blank",rel:"noopener noreferrer",style:{background:ORANGE,color:"#fff",padding:"9px 20px",borderRadius:"100px",fontSize:"13px",fontWeight:600,display:"inline-flex",alignItems:"center",gap:"6px"}},
+        "Démarrer gratuitement ", React.createElement(Arrow))
+    ),
+
+    // HERO
+    React.createElement('section', {style:{maxWidth:"800px",margin:"0 auto",padding:"64px 32px 48px",textAlign:"center"}},
+      React.createElement('div', {className:"fu",style:{display:"inline-flex",alignItems:"center",gap:"8px",background:"rgba(221,89,32,.08)",border:"1px solid rgba(221,89,32,.2)",borderRadius:"100px",padding:"5px 16px",marginBottom:"22px"}},
+        React.createElement('span', {style:{width:6,height:6,borderRadius:"50%",background:ORANGE,display:"inline-block"}}),
+        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE}}, "Suite à votre démo Cocohop")
+      ),
+      React.createElement('h1', {className:"fu",style:{fontSize:"44px",fontWeight:700,lineHeight:1.1,marginBottom:"18px",color:TEXT}},
+        `Merci ${name} pour`, React.createElement('br'),
+        React.createElement('span', {style:{background:`linear-gradient(135deg,${ORANGE},${TEAL})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",fontStyle:"italic",fontWeight:600}}, "ce temps d'échange !")
+      ),
+      React.createElement('p', {className:"fu",style:{fontSize:"16px",color:MUTED,lineHeight:1.75,marginBottom:"36px"}},
+        "Retrouvez ici tous les liens, tarifs et informations discutés lors de notre échange."
+      ),
+      React.createElement('div', {className:"fu",style:{display:"flex",justifyContent:"center",gap:"36px",flexWrap:"wrap",padding:"24px 32px",background:CARD,border:`1px solid ${BORDER}`,borderRadius:"18px"}},
+        [["80%","sur les tâches les plus chronophages",ORANGE],["30%","de conversion en plus",TEAL],["50M+","ressources dispo",ORANGE]].map(([v,l,c]) =>
+          React.createElement('div', {key:l,style:{textAlign:"center"}},
+            React.createElement('div', {style:{fontSize:"26px",fontWeight:700,color:c}}, v),
+            React.createElement('div', {style:{fontSize:"12px",color:MUTED,marginTop:"3px"}}, l)
+          )
+        )
+      )
+    ),
+
+    // BANNER
+    React.createElement('section', {style:{maxWidth:"900px",margin:"0 auto 64px",padding:"0 32px"}},
+      React.createElement('div', {style:{borderRadius:"20px",overflow:"hidden",border:`1px solid ${BORDER}`,boxShadow:"0 4px 40px rgba(221,89,32,.07)"}},
+        React.createElement('img', {src:BANNER,alt:"Cocohop",style:{width:"100%",display:"block",background:"#f4f4f4"}})
+      )
+    ),
+
+    // PROFIL PROSPECT
+    React.createElement('section', {style:{maxWidth:"860px",margin:"0 auto",padding:"0 32px 64px"}},
+      React.createElement('div', {style:{textAlign:"center",marginBottom:"28px"}},
+        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE}}, "Fait pour vous"),
+        React.createElement('h2', {style:{fontSize:"32px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Votre profil & vos enjeux")
+      ),
+      React.createElement('div', {style:{background:`linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))`,border:`1px solid rgba(221,89,32,.15)`,borderRadius:"20px",padding:"28px 32px",marginBottom:"24px",display:"flex",alignItems:"center",gap:"20px",flexWrap:"wrap"}},
+        React.createElement('div', {style:{width:56,height:56,borderRadius:"14px",background:ORANGE,display:"flex",alignItems:"center",justifyContent:"center",fontSize:"22px",flexShrink:0}}, "🏢"),
+        React.createElement('div', {style:{flex:1}},
+          React.createElement('div', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE,marginBottom:"4px"}}, prospectProfile.type),
+          React.createElement('div', {style:{fontSize:"18px",fontWeight:700,color:TEXT,marginBottom:"3px"}}, prospectProfile.company),
+          React.createElement('div', {style:{fontSize:"13px",color:MUTED,lineHeight:1.6}}, prospectProfile.context)
+        )
+      ),
+      React.createElement('div', {style:{marginBottom:"24px"}},
+        React.createElement('div', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED,marginBottom:"14px"}}, "Vos défis identifiés"),
+        React.createElement('div', {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px"}},
+          prospectProfile.challenges.map((c,i) =>
+            React.createElement('div', {key:i,style:{display:"flex",alignItems:"flex-start",gap:"12px",padding:"16px",borderRadius:"14px",background:"rgba(255,70,70,.03)",border:"1px solid rgba(255,70,70,.1)"}},
+              React.createElement('span', {style:{fontSize:"20px",flexShrink:0}}, c.icon),
+              React.createElement('div', null,
+                React.createElement('div', {style:{fontSize:"13px",fontWeight:600,color:TEXT,marginBottom:"4px"}}, c.title),
+                React.createElement('div', {style:{fontSize:"12px",color:MUTED,lineHeight:1.55}}, c.desc)
+              )
+            )
+          )
+        )
+      ),
+      React.createElement('div', null,
+        React.createElement('div', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:TEAL,marginBottom:"14px"}}, "Ce que Cocohop apporte concrètement"),
+        React.createElement('div', {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"10px"}},
+          prospectProfile.benefits.map((b,i) =>
+            React.createElement('div', {key:i,style:{display:"flex",alignItems:"flex-start",gap:"12px",padding:"16px",borderRadius:"14px",background:"rgba(9,127,120,.04)",border:"1px solid rgba(9,127,120,.12)"}},
+              React.createElement('span', {style:{fontSize:"20px",flexShrink:0}}, b.icon),
+              React.createElement('div', null,
+                React.createElement('div', {style:{fontSize:"13px",fontWeight:600,color:TEXT,marginBottom:"4px"}}, b.title),
+                React.createElement('div', {style:{fontSize:"12px",color:MUTED,lineHeight:1.55}}, b.desc)
+              )
+            )
+          )
+        )
+      )
+    ),
+
+    // RÉCAP DÉMO
+    React.createElement('section', {style:{maxWidth:"860px",margin:"0 auto",padding:"0 32px 64px"}},
+      React.createElement('div', {style:{textAlign:"center",marginBottom:"28px"}},
+        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:TEAL}}, "Ce qu'on a vu ensemble"),
+        React.createElement('h2', {style:{fontSize:"32px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Récap de votre démo")
+      ),
+      React.createElement('div', {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"12px"}},
+        [
+          {icon:"🤖",title:"IA intégrée aux workflows",desc:"Vous avez découvert comment Theya s'intègre nativement à vos processus de production, sans rupture dans votre façon de travailler."},
+          {icon:"📄",title:"Génération automatique de documents",desc:"Devis, itinéraires, carnets de voyage — générés en quelques secondes à partir de vos contenus existants."},
+          {icon:"⚡",title:"Jusqu'à 80% de temps gagné",desc:"Sur les tâches les plus chronophages, pour vous concentrer sur ce qui compte vraiment : le conseil et la relation client."},
+          {icon:"🎁",title:"14 jours d'essai gratuit",desc:"Vous bénéficiez d'un accès complet au plan Synergy pendant 14 jours, sans carte bancaire requise."},
+        ].map((p,i) =>
+          React.createElement('div', {key:i,className:"card",style:{background:"#fff",border:`1px solid ${BORDER}`,borderRadius:"16px",padding:"24px",boxShadow:"0 2px 12px rgba(0,0,0,.05)"}},
+            React.createElement('div', {style:{fontSize:"26px",marginBottom:"12px"}}, p.icon),
+            React.createElement('h4', {style:{fontSize:"14px",fontWeight:600,marginBottom:"7px",color:TEXT}}, p.title),
+            React.createElement('p', {style:{fontSize:"13px",color:MUTED,lineHeight:1.65}}, p.desc)
+          )
+        )
+      )
+    ),
+
+    // FAQ
+    React.createElement('section', {style:{maxWidth:"760px",margin:"0 auto",padding:"0 32px 64px"}},
+      React.createElement('div', {style:{textAlign:"center",marginBottom:"28px"}},
+        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Questions fréquentes"),
+        React.createElement('h2', {style:{fontSize:"32px",fontWeight:700,marginTop:"8px",color:TEXT}}, "Vos questions")
+      ),
+      React.createElement('div', {style:{display:"flex",flexDirection:"column",gap:"8px"}},
+        faq.map((item,i) =>
+          React.createElement('div', {key:i,style:{background:"#fff",border:`1px solid ${openFaq===i?"rgba(221,89,32,.3)":BORDER}`,borderRadius:"14px",overflow:"hidden",boxShadow:openFaq===i?"0 4px 20px rgba(221,89,32,.07)":"0 1px 4px rgba(0,0,0,.04)",transition:"all .2s"}},
+            React.createElement('button', {onClick:()=>setOpenFaq(openFaq===i?null:i),style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"18px 22px",background:"none",border:"none",textAlign:"left",gap:"12px"}},
+              React.createElement('span', {style:{fontSize:"14px",fontWeight:600,color:TEXT,lineHeight:1.4}}, item.q),
+              React.createElement('span', {style:{width:24,height:24,borderRadius:"50%",background:openFaq===i?ORANGE:CARD,border:`1px solid ${openFaq===i?ORANGE:BORDER}`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"all .2s",color:openFaq===i?"#fff":MUTED,fontSize:"14px",fontWeight:600}},
+                openFaq===i?"×":"+"
+              )
+            ),
+            openFaq===i && React.createElement('div', {style:{padding:"14px 22px 18px",fontSize:"13px",color:MUTED,lineHeight:1.75,whiteSpace:"pre-line",borderTop:`1px solid ${BORDER}`}}, item.a)
+          )
+        )
+      )
+    ),
+
+    // PRICING
+    React.createElement('section', {style:{maxWidth:"1000px",margin:"0 auto",padding:"0 32px 64px"}},
+      React.createElement('div', {style:{textAlign:"center",marginBottom:"32px"}},
+        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:MUTED}}, "Tarifs"),
+        React.createElement('h2', {style:{fontSize:"32px",fontWeight:700,margin:"8px 0 6px",color:TEXT}}, "Choisissez votre plan"),
+        React.createElement('p', {style:{fontSize:"13px",color:MUTED,marginBottom:"20px"}}, "14 jours d'essai gratuit sur le plan Synergy — sans carte bancaire"),
+        React.createElement('div', {style:{display:"inline-flex",background:CARD,border:`1px solid ${BORDER}`,borderRadius:"100px",padding:"3px"}},
+          [["monthly","Mensuel",null],["annual","Annuel","-20%"]].map(([b,l,badge]) =>
+            React.createElement('button', {key:b,onClick:()=>setBilling(b),style:{padding:"7px 18px",borderRadius:"100px",fontSize:"13px",fontWeight:500,background:billing===b?TEXT:"transparent",color:billing===b?"#fff":MUTED,display:"inline-flex",alignItems:"center",gap:"5px",border:"none",transition:"all .15s"}},
+              l, badge && React.createElement('span', {style:{fontSize:"10px",background:TEAL,color:"#fff",padding:"2px 6px",borderRadius:"100px",fontWeight:700}}, badge)
+            )
+          )
+        )
+      ),
+      React.createElement('div', {style:{display:"flex",gap:"14px",alignItems:"stretch"}},
+        plans.map(plan =>
+          React.createElement('div', {key:plan.name,className:"card",style:{flex:1,borderRadius:"20px",padding:"26px",background:plan.pop?"rgba(221,89,32,.04)":"#fff",border:plan.pop?"1.5px solid rgba(221,89,32,.3)":`1px solid ${BORDER}`,display:"flex",flexDirection:"column",position:"relative",boxShadow:plan.pop?"0 4px 32px rgba(221,89,32,.1)":"0 2px 12px rgba(0,0,0,.05)"}},
+            plan.badge && React.createElement('div', {style:{position:"absolute",top:"-11px",left:"50%",transform:"translateX(-50%)",background:ORANGE,color:"#fff",padding:"3px 12px",borderRadius:"100px",fontSize:"10px",fontWeight:700,whiteSpace:"nowrap"}}, `✦ ${plan.badge}`),
+            React.createElement('div', {style:{textAlign:"center",marginBottom:"14px",paddingBottom:"14px",borderBottom:`1px solid ${BORDER}`}},
+              React.createElement('div', {style:{fontSize:"22px",fontWeight:400,color:TEXT,fontStyle:plan.subtitle?"italic":"normal"}}, plan.name),
+              plan.subtitle && React.createElement('div', {style:{fontSize:"18px",fontWeight:600,color:TEXT,marginTop:"2px"}}, plan.subtitle),
+              React.createElement('div', {style:{fontSize:"12px",color:MUTED,marginTop:"6px",lineHeight:1.5}}, plan.tag)
+            ),
+            React.createElement('div', {style:{marginBottom:"14px"}},
+              React.createElement('div', {style:{display:"flex",alignItems:"baseline",gap:"3px"}},
+                React.createElement('span', {style:{fontSize:"32px",fontWeight:700,color:ORANGE}}, `€${billing==="annual"?plan.annual:plan.monthly}`),
+                React.createElement('span', {style:{fontSize:"11px",color:MUTED}}, `HT ${plan.unit}`)
+              ),
+              React.createElement('div', {style:{fontSize:"11px",color:MUTED,marginTop:"2px"}},
+                billing==="annual"?`Soit ${plan.annualStr}`:"Facturation mensuelle",
+                plan.name==="Studio"?" · Puis +25€HT/mois par utilisateur supp.":"",
+                plan.name==="Synergy"?" · Puis +30€HT/mois par utilisateur supp.":""
+              )
+            ),
+            React.createElement('p', {style:{fontSize:"12px",color:MUTED,lineHeight:1.6,marginBottom:"16px"}}, plan.desc),
+            React.createElement('a', {href:"https://app.cocohop.com/",target:"_blank",rel:"noopener noreferrer",style:{display:"flex",alignItems:"center",justifyContent:"center",gap:"6px",padding:"11px",borderRadius:"100px",background:plan.pop?ORANGE:"rgba(0,0,0,.07)",color:plan.pop?"#fff":TEXT,fontSize:"12px",fontWeight:700,marginBottom:"18px"}}, plan.cta),
+            plan.features.length>0 && React.createElement('div', {style:{marginBottom:plan.options.length>0?"14px":0}},
+              React.createElement('div', {style:{fontSize:"10px",fontWeight:700,letterSpacing:".08em",textTransform:"uppercase",color:MUTED,marginBottom:"8px"}}, "Inclus"),
+              React.createElement('ul', {style:{listStyle:"none"}},
+                plan.features.map(f => React.createElement('li', {key:f,style:{display:"flex",alignItems:"flex-start",gap:"7px",padding:"5px 0",fontSize:"12px",color:MUTED,borderBottom:`1px solid ${BORDER}`}},
+                  React.createElement(Check), React.createElement('span', null, f)
+                ))
+              )
+            ),
+            plan.options.length>0 && React.createElement('div', null,
+              React.createElement('div', {style:{fontSize:"10px",fontWeight:700,letterSpacing:".08em",textTransform:"uppercase",color:TEAL,marginBottom:"8px"}}, "Options"),
+              React.createElement('ul', {style:{listStyle:"none"}},
+                plan.options.map(o => React.createElement('li', {key:o,style:{display:"flex",alignItems:"flex-start",gap:"7px",padding:"5px 0",fontSize:"12px",color:MUTED,borderBottom:`1px solid ${BORDER}`}},
+                  React.createElement('span', {style:{color:TEAL,flexShrink:0}}, "+"), React.createElement('span', null, o)
+                ))
+              )
+            )
+          )
+        )
+      ),
+      React.createElement('p', {style:{textAlign:"center",fontSize:"11px",color:MUTED,marginTop:"14px"}}, "Prix HT · Sans engagement sur le plan mensuel")
+    ),
+
+    // CONTACT
+    React.createElement('section', {style:{maxWidth:"860px",margin:"0 auto",padding:"0 32px 72px"}},
+      React.createElement('div', {style:{background:"linear-gradient(135deg,rgba(221,89,32,.06),rgba(9,127,120,.04))",border:"1px solid rgba(221,89,32,.18)",borderRadius:"22px",padding:"36px"}},
+        React.createElement('div', {style:{background:"rgba(9,127,120,.06)",border:"1px solid rgba(9,127,120,.2)",borderRadius:"14px",padding:"20px 24px",marginBottom:"28px",display:"flex",alignItems:"center",gap:"18px",flexWrap:"wrap"}},
+          React.createElement('div', {style:{fontSize:"32px"}}, "🛠️"),
+          React.createElement('div', {style:{flex:1}},
+            React.createElement('div', {style:{fontSize:"13px",fontWeight:700,color:TEXT,marginBottom:"4px"}}, "Atelier de construction d'itinéraires"),
+            React.createElement('div', {style:{fontSize:"12px",color:MUTED,lineHeight:1.6}}, "Réservez un atelier pratique avec Alexandre pour construire votre premier itinéraire sur Cocohop, ensemble, en live.")
+          ),
+          React.createElement('a', {href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"9px 18px",borderRadius:"100px",flexShrink:0,background:TEAL,color:"#fff",fontSize:"12px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"6px",whiteSpace:"nowrap"}},
+            "📅 Booker l'atelier ", React.createElement(Arrow))
+        ),
+        React.createElement('span', {style:{fontSize:"11px",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:ORANGE,display:"block",marginBottom:"8px"}}, "Votre interlocuteur"),
+        React.createElement('h2', {style:{fontSize:"28px",fontWeight:700,marginBottom:"24px",color:TEXT}}, "Une question ? Je suis là."),
+        React.createElement('div', {style:{display:"flex",alignItems:"center",gap:"22px",flexWrap:"wrap"}},
+          React.createElement('div', {style:{width:64,height:64,borderRadius:"16px",flexShrink:0,background:"#fff",border:`1px solid ${BORDER}`,display:"flex",alignItems:"center",justifyContent:"center",padding:"10px"}},
+            React.createElement('img', {src:LOGO,alt:"Cocohop",style:{width:"100%",objectFit:"contain"}})
+          ),
+          React.createElement('div', {style:{flex:1,minWidth:"160px"}},
+            React.createElement('div', {style:{fontSize:"18px",fontWeight:600,marginBottom:"2px",color:TEXT}}, "Alexandre Rab"),
+            React.createElement('div', {style:{fontSize:"12px",color:MUTED,marginBottom:"12px"}}, "Founding Account Executive · Cocohop"),
+            React.createElement('div', {style:{display:"flex",gap:"8px",flexWrap:"wrap"}},
+              React.createElement('a', {href:"mailto:alexandre@cocohop.com",style:{display:"inline-flex",alignItems:"center",gap:"5px",padding:"7px 14px",borderRadius:"100px",background:"#fff",border:`1px solid ${BORDER}`,color:TEXT,fontSize:"12px",fontWeight:500}}, "✉️ alexandre@cocohop.com"),
+              React.createElement('a', {href:"https://www.linkedin.com/in/alexandre-rab/",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:"5px",padding:"7px 14px",borderRadius:"100px",background:"rgba(10,102,194,.08)",border:"1px solid rgba(10,102,194,.2)",color:"#0a66c2",fontSize:"12px",fontWeight:500}},
+                React.createElement('svg',{width:12,height:12,viewBox:"0 0 24 24",fill:"#0a66c2"},React.createElement('path',{d:"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"}),React.createElement('circle',{cx:4,cy:4,r:2})),
+                "LinkedIn"
+              )
+            )
+          ),
+          React.createElement('a', {href:"https://meetings.hubspot.com/alexandre341?uuid=9fb68135-4b2d-4e6b-93d2-e8508e77be83",target:"_blank",rel:"noopener noreferrer",style:{padding:"11px 20px",borderRadius:"100px",flexShrink:0,background:ORANGE,color:"#fff",fontSize:"13px",fontWeight:700,display:"inline-flex",alignItems:"center",gap:"6px"}},
+            "📅 Prendre un second rendez-vous ", React.createElement(Arrow))
+        )
+      )
+    ),
+
+    // FOOTER
+    React.createElement('footer', {style:{borderTop:`1px solid ${BORDER}`,padding:"22px 40px",maxWidth:"1000px",margin:"0 auto",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:"10px"}},
+      React.createElement('img', {src:LOGO,alt:"Cocohop",style:{height:"24px",objectFit:"contain"}}),
+      React.createElement('p', {style:{fontSize:"12px",color:MUTED}}, "© 2026 Cocohop — Made in 🇫🇷 avec 🧡 et 🥖"),
+      React.createElement('div', {style:{display:"flex",gap:"16px"}},
+        [["Site web","https://cocohop.com"],["CGU","https://cocohop.com/terms"],["Contact","https://cocohop.com/contact"]].map(([l,h]) =>
+          React.createElement('a', {key:l,href:h,style:{color:MUTED,fontSize:"12px"}}, l)
+        )
+      )
+    )
+  );
+}
+
+ReactDOM.render(React.createElement(App), document.getElementById('root'));
+</script>
+</body>
+</html>
